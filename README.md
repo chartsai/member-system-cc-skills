@@ -85,10 +85,11 @@ Written by `springboot-setup`, read by every other skill:
 
 ---
 
-## All skills (20 total)
+## All skills (21 total)
 
 | Skill | What it does |
 |---|---|
+| `springboot-prototype-ui` | **Optional but recommended — run before scaffold to validate the design.** Interactive design session → two self-contained HTML prototypes (member portal + admin portal) with domain-appropriate fake data. Open in any browser, no server needed. |
 | `springboot-setup` | **Start here.** Collects config, writes `.spring-config.json` |
 | `springboot-ide-setup` | Optional: Configure IntelliJ IDEA for the project |
 | `springboot-scaffold` | Create Spring Boot project (Gradle, Thymeleaf, Tailwind, Security) |
@@ -115,6 +116,10 @@ Written by `springboot-setup`, read by every other skill:
 ## Dependency graph
 
 ```
+OPTIONAL — run before everything else to validate design:
+════════════════════════════════════════════════════════════════
+springboot-prototype-ui   (no deps — run any time, no backend needed)
+
 FOUNDATION (install in this order):
 ════════════════════════════════════════════════════════════════
 springboot-setup          (no deps — always first)
@@ -166,6 +171,7 @@ springboot-deploy            (needs: setup, scaffold, db, gcp)
 ## Recommended install order for a full app
 
 ```
+0.  springboot-prototype-ui     (optional — run before anything else to validate the design)
 1.  springboot-setup
 2.  springboot-ide-setup        (optional — if new to the toolchain)
 3.  springboot-scaffold
@@ -322,10 +328,11 @@ claude
 
 ---
 
-## 全部模組（共 20 個）
+## 全部模組（共 21 個）
 
 | 技能 | 功能說明 |
 |---|---|
+| `springboot-prototype-ui` | **選用但強烈建議 — 在 scaffold 之前執行以驗證設計。** 互動式設計對話 → 兩個自帶假資料的獨立 HTML 原型（會員入口 + 管理後台）。直接用瀏覽器開啟，不需要伺服器。 |
 | `springboot-setup` | **從這裡開始。** 收集設定、寫入 `.spring-config.json` |
 | `springboot-ide-setup` | 選用：設定 IntelliJ IDEA 開發環境 |
 | `springboot-scaffold` | 建立 Spring Boot 專案（Gradle、Thymeleaf、Tailwind、Security） |
@@ -352,6 +359,10 @@ claude
 ## 相依關係圖
 
 ```
+選用 — 可在一切之前執行以驗證設計：
+════════════════════════════════════════════════════════════════
+springboot-prototype-ui   （無相依 — 隨時可執行，不需要後端）
+
 基礎模組（按此順序安裝）：
 ════════════════════════════════════════════════════════════════
 springboot-setup          （無相依 — 永遠最先）
@@ -403,6 +414,7 @@ springboot-deploy            （需要：setup, scaffold, db, gcp）
 ## 建議安裝順序（完整應用程式）
 
 ```
+0.  springboot-prototype-ui     （選用 — 建議在一切之前執行以驗證設計）
 1.  springboot-setup
 2.  springboot-ide-setup        （選用 — 適合剛接觸工具鏈的開發者）
 3.  springboot-scaffold
