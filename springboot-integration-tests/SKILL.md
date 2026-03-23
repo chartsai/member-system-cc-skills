@@ -42,6 +42,7 @@ super_admin_email → for test seed data
 test_mode         → if "token-save", output a test plan document instead of code
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → drives which test scenarios to generate
 ```
 
@@ -67,6 +68,13 @@ To generate actual test code, change test_mode to "build-and-test" in .spring-co
 Then generate `TEST_PLAN.md` (see Step 11) and stop.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When using Testcontainers: "Testcontainers spins up a real PostgreSQL database in Docker just for your tests, then tears it down afterward. This means your tests run against a real database — no mocks that might behave differently from production."
+- When using `@SpringBootTest`: "This annotation starts your entire Spring application for the test, including all beans, security, and database connections. It's slower than unit tests but tests the full stack."
+- When testing security: "We test that protected routes return 401/403 without credentials, and that login redirects work. This catches misconfigured security rules before they reach production."
 
 ## Step 2 — Update `build.gradle.kts`
 

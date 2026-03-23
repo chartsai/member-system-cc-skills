@@ -54,6 +54,13 @@ Note: Ultimate Edition has built-in support for Spring Boot, Thymeleaf, and Endp
 
 ---
 
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When opening the project: "When IntelliJ says 'Import Gradle project', it means it will read your `build.gradle.kts` file to understand the project structure, download dependencies, and configure code completion."
+- When setting up JDK: "JDK (Java Development Kit) is the toolkit needed to compile and run Java/Kotlin code. JDK 21 is the current LTS (Long-Term Support) version — use it for new projects."
+- When creating a Run Configuration: "A Run Configuration tells IntelliJ how to start your app — which main class to run, which JVM flags to use, and which Spring profile to activate. The `local` profile loads your local database settings."
+
 ## Step 2 — Installing IntelliJ IDEA
 
 If the user doesn't have IntelliJ IDEA installed:

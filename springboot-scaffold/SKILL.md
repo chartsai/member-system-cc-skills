@@ -27,6 +27,7 @@ super_admin_email → used in dev seed data
 test_mode         → controls build verification at the end
 language          → respond in this language throughout
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup" before proceeding
 ```
 
@@ -37,6 +38,13 @@ installed_modules → must contain "setup" before proceeding
 Verify `installed_modules` contains `"setup"`. If not, tell the user to run `springboot-setup` first.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating `build.gradle.kts`: "Gradle is the build tool — it downloads your dependencies, compiles your code, and runs tests. The `.kts` extension means we're writing the config in Kotlin instead of Groovy."
+- When adding Spring Boot dependencies: "Each `implementation(...)` line tells Gradle to download a library. `spring-boot-starter-web` gives us a web server; `spring-boot-starter-thymeleaf` lets us render HTML templates."
+- When creating `application.yml`: "This file configures your app — things like the server port, database URL, and feature flags. Spring Boot reads it automatically on startup."
 
 ## Step 2 — Create project directory structure
 

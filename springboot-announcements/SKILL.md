@@ -34,6 +34,7 @@ base_package      → Java package root
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must include "setup", "scaffold", "db", "membership"
                     "mail" → enables email notifications (check before using EmailService)
 ```
@@ -51,6 +52,13 @@ Install springboot-mail first to also send announcement notifications via email.
 ```
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating the announcements table: "We store `published_at` and `expires_at` timestamps — the query filters to only show announcements where `published_at <= now <= expires_at`, so scheduling works automatically."
+- When targeting by role: "The `target_role` column lets admins send to everyone (`ALL`), only members (`MEMBER`), or only admins (`ADMIN`). The Thymeleaf template checks the current user's role to decide what to show."
+- When integrating with mail: "If the mail module is installed, publishing an announcement can optionally trigger an email broadcast. We check `installed_modules` at runtime to decide whether email is available."
 
 ## Step 2 — Flyway migration
 

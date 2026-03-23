@@ -5,7 +5,7 @@ description: >
   "add email authentication", "run springboot-auth-magic-link", "add magic link auth",
   "set up email-based login without password", or anything about logging users in via a
   link sent to their email. Can be used alongside OR instead of Google OAuth2 auth.
-  Requires setup, scaffold, and db.
+  Requires setup, scaffold, db, AND mail (SMTP must be configured to send the login link).
 ---
 
 # springboot-auth-magic-link
@@ -26,7 +26,8 @@ app_url           → used in magic link URL construction
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
-installed_modules → must contain "setup", "scaffold", "db"
+beginner_friendly → if true, explain technical terms and decisions as you work
+installed_modules → must contain "setup", "scaffold", "db", "mail"
 ```
 
 ---
@@ -34,6 +35,24 @@ installed_modules → must contain "setup", "scaffold", "db"
 ## Step 1 — Prerequisites check
 
 Verify `installed_modules` contains `"setup"`, `"scaffold"`, and `"db"`.
+
+**Hard check — `mail` is required:**
+If `"mail"` is NOT in `installed_modules`, stop immediately and output:
+```
+❌ Cannot proceed: springboot-mail is not installed.
+
+Magic links are sent via email — SMTP must be configured first.
+Please run springboot-mail to set up email sending, then return here.
+```
+
+Do not continue until the user confirms mail is installed.
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating a magic link token: "A magic link works by generating a random, single-use token stored in the database. When the user clicks the link, we look up the token, verify it hasn't expired, and log them in — no password needed."
+- When adding `spring-boot-starter-mail`: "This dependency gives Spring Boot the ability to send emails using the `JavaMailSender` interface. We'll configure it to use your SMTP server."
+- When setting token expiry: "The token has a 15-minute expiry for security — if someone intercepts the email and tries to use the link later, it won't work."
 
 Check if `"auth-google"` is also in `installed_modules`. If it is, note:
 ```

@@ -5,14 +5,15 @@ description: >
   "add public apply form", "add registration form", "run springboot-membership-apply",
   "let people apply for membership", "build the /apply page", "add onboarding form",
   or anything about a public-facing form where non-logged-in users can apply to join.
-  No auth required to view or submit the form. Requires setup, scaffold, and db.
+  No auth required to view or submit the form. Requires setup, scaffold, db, AND mail
+  (sends welcome email when application is approved).
 ---
 
 # springboot-membership-apply
 
 Adds a public membership application form at `/apply`. No login required. Submissions are stored
 in an `applications` table. Admins review at `/admin/applications` and can approve or reject.
-On approval, a Member account is created.
+On approval, a Member account is created and a welcome email is sent.
 
 ---
 
@@ -29,7 +30,8 @@ super_admin_email → for dev data only
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
-installed_modules → must contain "setup", "scaffold", "db"
+beginner_friendly → if true, explain technical terms and decisions as you work
+installed_modules → must contain "setup", "scaffold", "db", "mail"
 ```
 
 ---
@@ -37,6 +39,24 @@ installed_modules → must contain "setup", "scaffold", "db"
 ## Step 1 — Prerequisites check
 
 Verify `installed_modules` contains `"setup"`, `"scaffold"`, `"db"`.
+
+**Hard check — `mail` is required:**
+If `"mail"` is NOT in `installed_modules`, stop immediately and output:
+```
+❌ Cannot proceed: springboot-mail is not installed.
+
+When an application is approved, a welcome email is sent to the applicant.
+Please run springboot-mail to configure email sending, then return here.
+```
+
+Do not continue until the user confirms mail is installed.
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating the applications table: "This Flyway migration creates the `applications` table — a database table that stores each person's application. Flyway runs this script automatically when the app starts."
+- When adding status enum: "We use a status field (`PENDING`, `APPROVED`, `REJECTED`) to track where each application is in the review process, rather than storing raw strings."
+- When sending welcome email: "On approval, we trigger the mail skill's email service to send a welcome message. This is why mail must be installed first."
 
 ---
 

@@ -39,6 +39,7 @@ app_url           → used in email body links
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → checked for membership, app-config
 ```
 
@@ -56,6 +57,13 @@ member-group targeting.
 ```
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When configuring SMTP: "SMTP is the protocol email clients use to send messages. We configure your app with an SMTP server address (like Gmail or SendGrid) so it can send emails programmatically."
+- When creating email templates: "We use Thymeleaf to render HTML emails — the same template engine used for web pages. Variables like `{{name}}` get replaced with real data before the email is sent."
+- When setting up MailHog for local dev: "MailHog is a fake SMTP server for development — it catches all outgoing emails and shows them in a web UI at localhost:8025. No real emails are sent."
 
 ## Step 2 — Update `build.gradle.kts`
 

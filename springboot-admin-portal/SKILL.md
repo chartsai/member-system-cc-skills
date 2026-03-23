@@ -23,6 +23,7 @@ base_package      → Java package root
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db", "membership"
 ```
 
@@ -33,6 +34,13 @@ installed_modules → must contain "setup", "scaffold", "db", "membership"
 Verify `installed_modules` contains `"setup"`, `"scaffold"`, `"db"`, `"membership"`.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When implementing preview mode: "Preview mode stores the target member's ID in the HTTP session — a server-side temporary storage tied to the current browser session. When the admin navigates, we check the session to serve data as that member."
+- When adding the preview banner: "Thymeleaf's `th:if` lets us conditionally show HTML based on server-side data — here, we show the preview banner only when a `previewMemberId` exists in the session."
+- When implementing exit preview: "Removing the `previewMemberId` from the session instantly restores the admin's normal view — no database changes needed."
 
 ## Step 2 — `PreviewSessionHelper` — session-based preview state
 

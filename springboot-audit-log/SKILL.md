@@ -34,6 +34,7 @@ base_package      → Java package root
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → checked for membership
 ```
 
@@ -44,6 +45,13 @@ installed_modules → checked for membership
 Verify `installed_modules` contains `"setup"`, `"scaffold"`, `"db"`.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When implementing `@EntityListeners`: "JPA entity listeners are methods that Spring calls automatically before/after database operations — before an `UPDATE`, we capture the old and new values and write an audit log entry."
+- When using `SecurityContextHolder`: "Spring Security stores the currently logged-in user in `SecurityContextHolder`. We read it in the audit listener to know who made the change — even though the listener has no direct reference to the HTTP request."
+- When building the admin log view: "The audit log query is just `SELECT * FROM audit_log WHERE entity_type = ? AND entity_id = ?` ordered by time. We add filters so admins can drill into 'all changes to member #42' or 'all actions by admin@example.com'."
 
 ## Step 2 — Flyway migration
 

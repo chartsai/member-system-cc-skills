@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -rL \"beginner_friendly\" */SKILL.md)"
+    ]
+  }
+}

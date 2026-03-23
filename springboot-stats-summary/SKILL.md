@@ -37,6 +37,7 @@ app_name          → used in page titles
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → checked for item-submit, app-config, data-export
 ```
 
@@ -51,6 +52,13 @@ Note which soft prerequisites are present:
 - If `"app-config"` is missing: period config will come from application.yml only
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When calculating period boundaries: "We store period start/end dates in `app_config` so they can be changed without code edits. An 'academic year' might start July 1; a 'fiscal quarter' starts every 3 months."
+- When writing aggregation queries: "SQL's `COUNT()`, `SUM()`, and `GROUP BY` let us summarize many rows into totals per member. We run these queries when the summary page loads, rather than pre-computing and storing results."
+- When showing progress indicators: "If an annual limit is configured, we compare a member's total against it to show '4 of 5 completed'. We read the limit from `app_config` so it can vary by year."
 
 ## Step 2 — Flyway migration
 

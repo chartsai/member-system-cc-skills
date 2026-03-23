@@ -26,6 +26,7 @@ app_name          → used in page titles
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db", "membership"
 ```
 
@@ -36,6 +37,13 @@ installed_modules → must contain "setup", "scaffold", "db", "membership"
 Verify `installed_modules` contains `"setup"`, `"scaffold"`, `"db"`, `"membership"`.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating submission status: "The status field (`PENDING`, `APPROVED`, `REJECTED`) creates a simple state machine. A submission moves through states as admins review it — we never delete records, just update the status."
+- When building the admin review queue: "The review queue is just a filtered query — `WHERE status = 'PENDING'` — displayed as a list. Approving or rejecting just updates the status and adds a reviewer note."
+- When adding duplicate prevention: "We check for existing submissions with the same member + type + period before inserting, so members can't accidentally submit the same thing twice."
 
 ## Step 2 — Flyway migration
 

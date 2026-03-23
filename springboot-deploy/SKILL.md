@@ -59,6 +59,13 @@ Please run springboot-gcp-setup first. The deploy skill needs:
 
 ---
 
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When writing the Dockerfile: "A Dockerfile is a recipe for building a container image — a self-contained package with your app and everything it needs to run. The multi-stage build compiles your code first, then copies only the output jar into a smaller runtime image."
+- When setting up Artifact Registry: "Artifact Registry is GCP's container image storage. We push your Docker image there, and Cloud Run pulls it from there when deploying. Think of it like GitHub but for Docker images."
+- When creating `deploy.sh`: "This script wraps the three deployment steps — build image, push to Artifact Registry, deploy to Cloud Run — into one command so you don't have to remember them separately."
+
 ## Step 2 — `Dockerfile` (multi-stage build)
 
 ```dockerfile

@@ -25,6 +25,7 @@ super_admin_email → for dev seed
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db", and one of "auth-google" or "auth-magic-link"
 ```
 
@@ -39,6 +40,13 @@ Verify `installed_modules` contains:
 If missing, tell the user which skills to run first.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating the Member entity: "A JPA entity is a Java class that maps to a database table. Each field becomes a column, and Spring Data JPA handles the SQL queries for you."
+- When adding roles: "Roles (MEMBER, ADMIN, SUPER_ADMIN) control what each user can access. Spring Security checks roles before allowing access to protected pages."
+- When adding member status: "Status (PENDING, ACTIVE, SUSPENDED) tracks a member's lifecycle. We use it to block suspended members from logging in without deleting their data."
 
 ## Step 2 — Flyway migration: `V4__extend_members.sql`
 

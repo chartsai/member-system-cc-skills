@@ -24,6 +24,7 @@ gcp_project_id    → needed if gcp module installed
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db"
                     "gcp" → enables GcsFileStorageService
 ```
@@ -37,6 +38,13 @@ Note if `"gcp"` is in `installed_modules` — GCS service will be wired up.
 Verify `installed_modules` contains `"setup"`, `"scaffold"`, `"db"`.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating `FileStorageService` interface: "An interface defines the contract — what methods exist — without specifying how they work. We have two implementations: one saves files to disk locally, one saves to GCS in production."
+- When using `@Profile`: "Spring profiles let us swap implementations based on the environment. `@Profile('local')` means this class is only loaded when running locally; `@Profile('prod')` loads the GCS version in production."
+- When handling multipart uploads: "A multipart request is an HTTP request that can carry both form fields and files. Spring's `MultipartFile` gives you access to the file's bytes, name, and content type."
 
 ## Step 2 — Update `build.gradle.kts`
 

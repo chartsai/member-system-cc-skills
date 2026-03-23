@@ -38,6 +38,7 @@ app_url           → used in OAuth2 redirect URI instructions
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db"
 ```
 
@@ -61,6 +62,13 @@ Please run springboot-gcp-setup first, then come back to springboot-auth-google.
 If any other prerequisite is missing, tell the user which skills to run first.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When configuring OAuth2: "OAuth2 is a standard that lets users log in with their existing Google account instead of creating a new password. Google handles authentication; your app just receives the user's profile info."
+- When adding Spring Security: "Spring Security is a framework that protects your routes. We configure which URLs require login and which are public — Spring handles the rest automatically."
+- When creating `CustomOAuth2UserService`: "This class runs after Google confirms the user's identity. We use it to create or update our local `Member` record with the user's Google profile data."
 
 ## Step 2 — Update `build.gradle.kts`
 

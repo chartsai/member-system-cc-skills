@@ -38,6 +38,7 @@ base_package      → Java package root
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db"
 ```
 
@@ -52,6 +53,13 @@ than recreate it.
 Check if `V1__init.sql` already created the `app_config` table by looking at the migration files.
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When creating the `app_config` table: "This is a key-value store in the database — each row has a `key` (like `'email.rules.daily-digest'`) and a `value` (a JSON string). It lets admins change settings without redeploying the app."
+- When using `ObjectMapper`: "Jackson's `ObjectMapper` converts between JSON strings (stored in the database) and Java objects. We use it to deserialize the `value` column into a typed class."
+- When building the admin config UI: "The config editor at `/admin/config` shows all keys and their values. Admins can edit values directly — the change takes effect immediately without restarting the server."
 
 ## Step 2 — Flyway migration
 

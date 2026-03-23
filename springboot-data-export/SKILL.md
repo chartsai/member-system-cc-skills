@@ -35,6 +35,7 @@ gcp_project_id    → needed for Google Sheets export
 test_mode         → controls build verification
 language          → respond in this language
 translate_terms   → whether to translate technical terms
+beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db", "membership"
                     "gcp" → enables Google Sheets export
 ```
@@ -52,6 +53,13 @@ CSV and Excel export will still work. Install springboot-gcp-setup first to enab
 ```
 
 ---
+
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When using JdbcTemplate: "JdbcTemplate is Spring's lower-level database access tool. We use it here instead of JPA because we need to query arbitrary tables dynamically — JPA works better with fixed entity classes."
+- When building the table whitelist: "The whitelist is a hardcoded set of allowed table names. We check user input against it before building any SQL — this prevents SQL injection attacks where someone could request `DROP TABLE members`."
+- When mapping to Google Sheets: "The Google Sheets API v4 accepts data as a 2D array of strings. We build this from our query results, then call `values().update()` to write to a specific sheet tab."
 
 ## Step 2 — Update `build.gradle.kts`
 

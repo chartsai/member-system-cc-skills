@@ -46,6 +46,13 @@ Same for `gcp_region` if it is `"TBD"`.
 
 ---
 
+## Beginner-Friendly Mode
+
+If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts as you work. Examples:
+- When running `gcloud init`: "gcloud is Google's command-line tool for managing GCP resources. `gcloud init` connects your terminal to your Google account and selects which GCP project to work with."
+- When enabling APIs: "GCP APIs are features you have to explicitly turn on. Cloud Run (for hosting), Secret Manager (for passwords), and Artifact Registry (for Docker images) all need to be enabled before you can use them."
+- When creating a Service Account: "A Service Account is like a user account for your app — it has its own credentials and you grant it only the permissions it needs. This is safer than using your personal account."
+
 ## Step 2 — Check if `gcloud` is installed
 
 Run: `gcloud version`
