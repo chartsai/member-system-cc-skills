@@ -33,12 +33,24 @@ base_package      → Java package root
 app_name          → used in export file names
 gcp_project_id    → needed for Google Sheets export
 test_mode         → controls build verification
-language          → respond in this language
+language          → respond in this language for ALL output (questions, explanations,
+                    status messages, code comments, and user-facing copy in generated files)
+                    IMPORTANT: if "zh-TW", "traditional-chinese", or "繁體中文":
+                      use 繁體中文 (Traditional Chinese) throughout
+                      NEVER use Simplified Chinese (简体中文) — they are different writing systems
+                      Key differences: 體/体, 語/语, 資料/数据, 設定/设定, 確認/确认, 請/请
 translate_terms   → whether to translate technical terms
 beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup", "scaffold", "db", "membership"
                     "gcp" → enables Google Sheets export
 ```
+
+> **Language activation**: After reading `language` above, switch ALL your responses to that
+> language immediately — including every question, status message, explanation, and all
+> human-readable text in any generated files (HTML, Thymeleaf templates, SQL seed labels).
+> If `language` is not set, ask: "What language should I use? (English / 繁體中文 / other)"
+
+
 
 ---
 

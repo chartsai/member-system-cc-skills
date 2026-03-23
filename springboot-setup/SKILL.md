@@ -40,7 +40,9 @@ Please answer the following (you can write "TBD" for anything you don't know yet
 6.  Database name       — PostgreSQL DB name, e.g. "myapp_db"
 7.  GCP project ID      — Your Google Cloud project ID (or TBD if not set up yet)
 8.  GCP region          — e.g. "us-central1", "asia-east1" (or TBD)
-9.  Preferred language  — Language for Claude's responses: "English", "Traditional Chinese", etc.
+9.  Preferred language  — Language for Claude's responses. Options:
+                            "English" / "繁體中文" (Traditional Chinese) / "日本語" / other
+                          Note: 繁體中文 and 简体中文 are different — please specify which you want.
 10. Translate terms?    — Should technical terms (Controller, Service, Entity, etc.) be translated,
                           or kept in English even when responding in another language? (yes/no)
 11. Test mode           — How should tests be handled?
@@ -167,7 +169,16 @@ Java, SQL, and standard web patterns.
 
 ## Notes on `language` and `translate_terms`
 
-- All subsequent skills should respond in the user's preferred `language`.
-- If `translate_terms` is `false`, keep technical terms (Controller, Service, Repository, Entity, Bean,
-  Flyway, etc.) in English even when writing in another language.
+- All subsequent skills should respond in the user's preferred `language` for ALL output — questions, explanations, status messages, code comments, and user-facing copy in generated files.
+- If `translate_terms` is `false`, keep technical terms (Controller, Service, Repository, Entity, Bean, Flyway, etc.) in English even when writing in another language.
 - If `translate_terms` is `true`, translate everything including technical terms.
+
+> **Traditional vs Simplified Chinese**: These are different writing systems — never use one in place of the other.
+> If the user specifies Traditional Chinese (繁體中文), Taiwan, or Hong Kong context, always use Traditional characters.
+> Common Traditional terms: 設定 (not 设定), 資料 (not 数据), 確認 (not 确认), 請 (not 请),
+> 語言 (not 语言), 會員 (not 会员), 管理員 (not 管理员), 功能 (not 功能 — same here but check others).
+> When asking for language preference in Step 1, explicitly offer "繁體中文" as an option, not just "Chinese".
+
+> **Language activation for all skills**: Once `language` is set in `.spring-config.json`, every subsequent skill
+> reads it in Step 0 and switches its entire interaction to that language immediately — including every question,
+> option, and all human-readable text in generated files.

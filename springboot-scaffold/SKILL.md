@@ -25,11 +25,29 @@ base_package      → Java package root (e.g. com.example.myapp)
 app_url           → used in application.yml
 super_admin_email → used in dev seed data
 test_mode         → controls build verification at the end
-language          → respond in this language throughout
+language          → respond in this language for ALL output (questions, explanations,
+                    status messages, code comments, and user-facing copy in generated files)
+                    IMPORTANT: if "zh-TW", "traditional-chinese", or "繁體中文":
+                      use 繁體中文 (Traditional Chinese) throughout
+                      NEVER use Simplified Chinese (简体中文) — they are different writing systems
+                      Key differences: 體/体, 語/语, 資料/数据, 設定/设定, 確認/确认, 請/请 throughout
 translate_terms   → whether to translate technical terms
 beginner_friendly → if true, explain technical terms and decisions as you work
 installed_modules → must contain "setup" before proceeding
 ```
+
+> **Language activation**: After reading `language` above, switch ALL your responses to that
+> language immediately — including every question, status message, explanation, and all
+> human-readable text in any generated files (HTML, Thymeleaf templates, SQL seed labels).
+> If `language` is not set, ask: "What language should I use? (English / 繁體中文 / other)"
+
+
+> **Traditional vs Simplified Chinese**: If the user is in Taiwan/Hong Kong or specifies
+> 繁體中文, always use Traditional Chinese characters. Never substitute Simplified Chinese.
+> Common Traditional terms: 設定 (not 设定), 資料 (not 数据), 確認 (not 确认),
+> 請 (not 请), 語言 (not 语言), 會員 (not 会员), 管理員 (not 管理员).
+
+
 
 ---
 

@@ -38,6 +38,13 @@ language              → respond in this language
 translate_terms       → whether to translate technical terms
 ```
 
+> **Language activation**: After reading `language` above, switch ALL your responses to that
+> language immediately — including every question, status message, explanation, and all
+> human-readable text in any generated files (HTML, Thymeleaf templates, SQL seed labels).
+> If `language` is not set, ask: "What language should I use? (English / 繁體中文 / other)"
+
+
+
 Construct the artifact registry URL if not already in config:
 ```
 {{gcp_region}}-docker.pkg.dev/{{gcp_project_id}}/{{app_name_kebab}}-repo
