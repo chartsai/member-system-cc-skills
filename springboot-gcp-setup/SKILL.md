@@ -40,7 +40,7 @@ translate_terms  → whether to translate technical terms
 
 ## Step 1 — Prerequisites check
 
-Verify `installed_modules` contains `"setup"`. If not, tell the user to run `springboot-setup` first.
+Verify `installed_modules` contains `"setup"`. If not, tell the user to run `springboot-setup` first. Run `springboot-menu` to see your full project status and get guided next steps.
 
 If `gcp_project_id` is `"TBD"`, ask the user:
 ```

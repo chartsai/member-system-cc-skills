@@ -53,7 +53,7 @@ installed_modules → must contain "setup" before proceeding
 
 ## Step 1 — Prerequisites check
 
-Verify `installed_modules` contains `"setup"`. If not, tell the user to run `springboot-setup` first.
+Verify `installed_modules` contains `"setup"`. If not, tell the user to run `springboot-setup` first. Run `springboot-menu` to see your full project status and get guided next steps.
 
 ---
 

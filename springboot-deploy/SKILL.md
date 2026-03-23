@@ -62,6 +62,8 @@ Please run springboot-gcp-setup first. The deploy skill needs:
 - A configured GCP project
 - Artifact Registry repository
 - Service Account credentials
+
+Run `springboot-menu` to see your full project status and get guided next steps.
 ```
 
 ---

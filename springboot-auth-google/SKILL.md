@@ -69,9 +69,11 @@ Google OAuth2 credentials must be created in the GCP Console, which requires:
   2. The APIs & Services → Credentials section set up
 
 Please run springboot-gcp-setup first, then come back to springboot-auth-google.
+
+Run `springboot-menu` to see your full project status and get guided next steps.
 ```
 
-If any other prerequisite is missing, tell the user which skills to run first.
+If any other prerequisite is missing, tell the user which skills to run first. Run `springboot-menu` to see your full project status and get guided next steps.
 
 ---
 

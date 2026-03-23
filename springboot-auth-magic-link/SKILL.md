@@ -57,6 +57,8 @@ Magic links are sent via email — SMTP must be configured first.
 Please run springboot-mail to set up email sending, then return here.
 ```
 
+Run `springboot-menu` to see your full project status and get guided next steps.
+
 Do not continue until the user confirms mail is installed.
 
 ## Beginner-Friendly Mode

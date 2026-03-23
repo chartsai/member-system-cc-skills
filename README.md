@@ -85,7 +85,15 @@ Written by `springboot-setup`, read by every other skill:
 
 ---
 
-## All skills (21 total)
+## All skills (22 total)
+
+### 🗺️ Navigation
+
+| Skill | What it does |
+|---|---|
+| `springboot-menu` | **Project status dashboard + guided workflow.** Shows which modules are installed, what's ready to install next, and what's blocked. Acts as an active mentor: maps goals to modules, diagnoses problems, and guides you step-by-step. Works even before setup. |
+
+### All modules
 
 | Skill | What it does |
 |---|---|
@@ -328,7 +336,15 @@ claude
 
 ---
 
-## 全部模組（共 21 個）
+## 全部模組（共 22 個）
+
+### 🗺️ 選單與導引
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-menu` | **專案狀態儀表板 + 引導式工作流程。** 顯示已安裝的模組、下一步可安裝的項目，以及尚未解鎖的模組。作為主動導師：將目標對應到模組、診斷問題、逐步引導你。即使在執行 setup 之前也能使用。 |
+
+### 所有模組
 
 | 技能 | 功能說明 |
 |---|---|

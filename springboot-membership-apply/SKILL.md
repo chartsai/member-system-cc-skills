@@ -61,6 +61,8 @@ When an application is approved, a welcome email is sent to the applicant.
 Please run springboot-mail to configure email sending, then return here.
 ```
 
+Run `springboot-menu` to see your full project status and get guided next steps.
+
 Do not continue until the user confirms mail is installed.
 
 ## Beginner-Friendly Mode
