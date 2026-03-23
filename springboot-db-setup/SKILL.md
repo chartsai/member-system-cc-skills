@@ -23,10 +23,22 @@ base_package      → Java package root
 db_name           → PostgreSQL database name
 app_name          → used in docker-compose service labels
 test_mode         → controls build verification
+soft_delete       → true (default): use deleted_at pattern; false: use hard DELETE
+beginner_friendly → if true, explain technical terms inline
 language          → respond in this language
 translate_terms   → whether to translate technical terms
 installed_modules → must contain "setup" and "scaffold"
 ```
+
+If `beginner_friendly` is true, explain when introducing Flyway:
+> "Flyway is a database migration tool. It tracks versioned SQL files (called migrations) and runs
+> any new ones automatically each time the app starts. This keeps your database schema in sync
+> with your code without manual SQL scripts."
+
+**Soft delete convention:** If `soft_delete` is `true`, every entity created by this project
+will use a `deleted_at TIMESTAMPTZ` column instead of permanent DELETE. Queries automatically
+filter out soft-deleted records via Hibernate's `@SQLRestriction("deleted_at IS NULL")`.
+See `references/soft-delete-pattern.md` for the full implementation guide.
 
 ---
 

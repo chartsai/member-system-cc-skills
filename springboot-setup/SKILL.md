@@ -47,6 +47,12 @@ Please answer the following (you can write "TBD" for anything you don't know yet
                             "token-save"     → skip all tests (fastest, fewest tokens)
                             "build-only"     → run ./gradlew build -x test (verify compilation only)
                             "build-and-test" → run ./gradlew build (full build + tests)
+12. Soft delete?        — Should deleted records be permanently removed, or kept with a
+                          deleted_at timestamp (recommended — allows data recovery)?
+                          Default: yes (soft delete) — type "no" only for permanent delete.
+13. Beginner-friendly?  — Would you like Claude to explain technical terms and decisions
+                          as it works? (e.g., "A Flyway migration is a versioned SQL script...")
+                          Default: no — type "yes" if you are new to Spring Boot / Java.
 ```
 
 ---
@@ -94,6 +100,8 @@ Write this file to the **current working directory** (the project root):
   "language": "<language>",
   "translate_terms": <true|false>,
   "test_mode": "<token-save|build-only|build-and-test>",
+  "soft_delete": <true|false>,
+  "beginner_friendly": <true|false>,
   "installed_modules": ["setup"]
 }
 ```
@@ -125,6 +133,35 @@ Every subsequent skill reads `test_mode` from the config and applies it:
 | `"build-and-test"` | Run `./gradlew build` (full build including tests) |
 
 The user can change `test_mode` at any time by editing `.spring-config.json` directly.
+
+---
+
+## Notes on `soft_delete`
+
+When `soft_delete` is `true` (the default), every skill that implements delete functionality will:
+- Add a `deleted_at TIMESTAMPTZ` column to entities instead of deleting rows
+- Use Hibernate's `@SQLRestriction("deleted_at IS NULL")` to auto-filter queries
+- Add admin "restore" endpoints for soft-deleted records
+- Add a "Show deleted" toggle to admin list views
+
+When `soft_delete` is `false`, skills will use hard (permanent) DELETE SQL.
+
+**Each skill that implements delete will note:** "This module uses soft delete by default.
+If you configured `soft_delete: false`, tell Claude to use hard delete instead."
+
+---
+
+## Notes on `beginner_friendly`
+
+When `beginner_friendly` is `true`:
+- Every skill will explain technical terms inline as it introduces them
+- Example: "We're adding a Flyway migration — this is a versioned SQL file that runs automatically
+  each time the app starts, ensuring your database schema stays in sync with your code."
+- Skills will explain WHY, not just WHAT
+- Code patterns will have extra comments explaining the reasoning
+
+When `beginner_friendly` is `false` (the default), skills assume familiarity with Spring Boot,
+Java, SQL, and standard web patterns.
 
 ---
 
