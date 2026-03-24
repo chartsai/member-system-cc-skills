@@ -17,7 +17,7 @@ description: >
 
 Try to read `.spring-config.json` from the current directory.
 
-**If the file does NOT exist**, show this message (detect language from user's prior messages if possible, otherwise default to English):
+**If the file does NOT exist**, detect language from the user's prior messages if possible; if they wrote in Traditional Chinese (繁體中文), respond in Traditional Chinese — otherwise default to English. Show this message:
 
 ```
 👋 Welcome! It looks like this is a new project — no .spring-config.json found yet.
@@ -44,7 +44,16 @@ Read `.spring-config.json`. Extract the following fields:
 - `test_mode`
 - `soft_delete`
 
-Switch ALL subsequent output to the configured `language` immediately (e.g., if `language` is `"Traditional Chinese"`, respond in Traditional Chinese from this point on).
+> **Language activation**: After reading `language` above, switch ALL your responses to that
+> language immediately — including every dashboard label, module description, status indicator,
+> recommendation, unblock tip, mentor mode question, diagnostic message, and quick-start guide.
+> If `language` is not set, ask: "What language should I use? (English / 繁體中文 / other)"
+
+> **Traditional vs Simplified Chinese**: If `language` is `"zh-TW"`, `"traditional-chinese"`,
+> or `"繁體中文"`, use Traditional Chinese (繁體中文) throughout — NEVER Simplified Chinese (简体中文).
+> They are different writing systems. Key Traditional terms: 設定 (not 设定), 資料 (not 数据),
+> 確認 (not 确认), 請 (not 请), 語言 (not 语言), 會員 (not 会员), 管理員 (not 管理员),
+> 模組 (not 模块), 安裝 (not 安装), 設置 (not 设置).
 
 ---
 
@@ -170,6 +179,39 @@ For any 🔒 blocked module that is **only one prerequisite away** from being un
 
 If `beginner_friendly` is true, add a one-sentence plain-language explanation of what the blocking module does:
 - e.g., "springboot-mail sets up your app's ability to send emails — without it, magic link login has no way to deliver login links."
+
+---
+
+### Step 4b — Newbie Quick-Start Guide
+
+If `installed_modules` is empty OR contains only `["setup"]`, show this numbered guide (translated to the configured `language`):
+
+---
+🚀 **Quick-Start Order** (follow this sequence for a new project):
+
+1. `springboot-setup` — Answer ~13 questions → creates `.spring-config.json`
+2. `springboot-scaffold` — Generates the Spring Boot project (Gradle + Thymeleaf + Tailwind)
+3. `springboot-db-setup` — Adds PostgreSQL database + Docker Compose + Flyway migrations
+4. `springboot-mail` — Sets up SMTP email (needed for passwordless login or notifications)
+5. `springboot-gcp-setup` — Connects to Google Cloud Platform (needed for Google login + deploy)
+6. **Choose login method** (at least one required):
+   - `springboot-auth-google` — Google OAuth2 (fastest if users have Google accounts)
+   - `springboot-auth-magic-link` — Passwordless email login (works with any email)
+7. `springboot-membership` — Member entity, roles (MEMBER / ADMIN / SUPER_ADMIN), member list
+8. `springboot-admin-portal` — Admin dashboard with member management
+9. Add features as needed: `file-upload`, `item-submit`, `announcements`, `stats-summary`, `data-export`, `audit-log`
+10. `springboot-deploy` — Docker image + Cloud Run deployment script
+11. `springboot-integration-tests` — Cross-module integration test strategy
+
+💡 **Opening the project in IntelliJ IDEA** (after Step 2):
+   File → Open → select the project folder → click "Import Gradle project" when prompted.
+   Run `springboot-ide-setup` any time for a full IDE walkthrough.
+
+---
+
+If `ide-setup` is NOT in `installed_modules`, also add this tip at the end of Step 3:
+
+> 💡 **IDE tip**: Run `springboot-ide-setup` any time to get a guided IntelliJ IDEA setup walkthrough.
 
 ---
 

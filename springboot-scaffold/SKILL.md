@@ -541,6 +541,52 @@ see the welcome page.
 
 ---
 
+## Step 16b — Unit Tests
+
+Generate a smoke test that verifies the Spring application context loads without errors:
+
+```kotlin
+// src/test/kotlin/{{base_package}}/ApplicationContextTest.kt
+package {{base_package}}
+
+import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
+
+@SpringBootTest
+@ActiveProfiles("test")
+class ApplicationContextTest {
+
+    @Test
+    fun contextLoads() {
+        // Verifies the Spring application context starts without errors
+    }
+}
+```
+
+Also create `src/test/resources/application-test.yml` with an H2 in-memory database so tests
+don't require a running PostgreSQL instance:
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+```
+
+Add `testImplementation("com.h2database:h2")` to `build.gradle.kts` if not present.
+
+Run the test: `./gradlew test` — it should pass before committing.
+
+---
+
 ## Step 17 — Git commit
 
 ```bash

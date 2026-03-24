@@ -119,6 +119,12 @@ Written by `springboot-setup`, read by every other skill:
 | `springboot-integration-tests` | Auto-generates integration tests based on installed modules |
 | `springboot-deploy` | Dockerfile, Cloud Build CI, `deploy.sh` for Cloud Run |
 
+> **Unit tests**: All feature modules generate unit tests as part of the implementation.
+> Tests are written in Kotlin using JUnit 5 and follow Spring Boot testing conventions
+> (`@SpringBootTest` for integration tests, plain JUnit for unit logic). The `test_mode`
+> config field controls whether tests are run during installation: `build-and-test` runs them,
+> `build-only` generates them without running, `token-save` skips test code generation.
+
 ---
 
 ## Dependency graph
@@ -369,6 +375,12 @@ claude
 | `springboot-audit-log` | 操作稽核記錄：誰改了什麼、何時改的 |
 | `springboot-integration-tests` | 根據已安裝模組自動產生整合測試 |
 | `springboot-deploy` | Dockerfile、Cloud Build CI、`deploy.sh` 部署到 Cloud Run |
+
+> **單元測試**：所有功能模組在實作過程中都會產生單元測試。
+> 測試使用 Kotlin + JUnit 5 撰寫，遵循 Spring Boot 測試慣例
+> （整合測試用 `@SpringBootTest`，單元邏輯用純 JUnit）。
+> `test_mode` 設定欄位控制安裝時是否執行測試：`build-and-test` 執行測試，
+> `build-only` 產生測試但不執行，`token-save` 略過測試程式碼生成。
 
 ---
 

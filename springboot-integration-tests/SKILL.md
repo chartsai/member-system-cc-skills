@@ -88,6 +88,39 @@ If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts 
 - When using `@SpringBootTest`: "This annotation starts your entire Spring application for the test, including all beans, security, and database connections. It's slower than unit tests but tests the full stack."
 - When testing security: "We test that protected routes return 401/403 without credentials, and that login redirects work. This catches misconfigured security rules before they reach production."
 
+## Step 1b — Module-Aware Test Plan
+
+Before generating any test code, build a test plan based on `installed_modules`. Only generate
+tests for modules that are actually installed. Use this matrix:
+
+| Module installed | Test scenarios to generate |
+|---|---|
+| `auth-google` | OAuth2 login flow → redirect to `/dashboard`; unauthenticated GET → 302 to `/login` |
+| `auth-magic-link` | POST `/auth/magic-link` with valid email → 200; POST unknown email → 200 (silent); GET `/auth/verify?token=valid` → redirect; GET with expired token → 401 |
+| `membership` | Authenticated member GET `/dashboard` → 200; unauthenticated → 302; ADMIN GET `/admin/members` → 200; MEMBER GET `/admin/**` → 403 |
+| `membership-apply` | GET `/apply` → 200 (public); POST valid data → redirect to confirmation; POST missing fields → 400 |
+| `admin-portal` | POST `/admin/preview/{memberId}` sets session; preview banner visible; POST `/admin/preview/exit` clears session |
+| `file-upload` | POST `/upload` valid file → 200 + URL; oversized file → 400; GET uploaded file → 200 |
+| `item-submit` | POST `/submit` → creates PENDING record; admin approve → status APPROVED; duplicate → 409 |
+| `announcements` | Published in-range announcement visible to target role; expired not shown; future-dated not shown |
+| `mail` | MailHog catches outgoing email (verify SMTP config; no real emails sent) |
+| `audit-log` | Update a Member → `audit_log` row created with correct actor, entity type, entity ID |
+
+For modules **NOT** in `installed_modules`, skip those test scenarios entirely and add a comment
+in the generated test class: `// [module-name] not installed — skipping [scenario] tests`
+
+At the top of each generated test class, add a comment block listing which modules were covered:
+```kotlin
+/**
+ * Integration tests generated for installed modules:
+ * [list active modules from installed_modules]
+ *
+ * Skipped (not installed): [list skipped modules]
+ */
+```
+
+---
+
 ## Step 2 — Update `build.gradle.kts`
 
 Add test dependencies:

@@ -408,6 +408,23 @@ Verify the Docker image builds successfully locally.
 
 ---
 
+## Step 11b — Validate Dockerfile (no unit tests for deploy scripts)
+
+The deploy module creates infrastructure scripts, not application code, so no Spring unit tests
+are generated. Validate the Dockerfile builds correctly with a local test build:
+
+```bash
+# Validate the Dockerfile parses and builds successfully
+docker build -t {{app_name}}-deploy-test .
+```
+
+If it builds without error, the Dockerfile is valid. You can clean up with:
+`docker rmi {{app_name}}-deploy-test`
+
+> If `test_mode` is `build-and-test`, also verify `deploy.sh` is executable: `chmod +x deploy.sh`
+
+---
+
 ## Step 12 — Git commits
 
 ```bash

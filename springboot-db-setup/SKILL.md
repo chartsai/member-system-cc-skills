@@ -289,6 +289,47 @@ If the user reports that Flyway fails (connection refused, auth error, etc.), tr
 
 ---
 
+## Step 10b — Unit Tests
+
+Generate a Flyway migration verification test. This confirms all SQL migration scripts run
+cleanly in a test database:
+
+```kotlin
+// src/test/kotlin/{{base_package}}/db/FlywayMigrationTest.kt
+package {{base_package}}.db
+
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
+import javax.sql.DataSource
+
+@SpringBootTest
+@ActiveProfiles("test")
+class FlywayMigrationTest {
+
+    @Autowired
+    lateinit var dataSource: DataSource
+
+    @Test
+    fun `all flyway migrations complete successfully`() {
+        dataSource.connection.use { conn ->
+            val rs = conn.metaData.getTables(null, null, "flyway_schema_history", null)
+            assertTrue(rs.next()) { "flyway_schema_history table should exist after migrations run" }
+        }
+    }
+}
+```
+
+> Note: Use Testcontainers for the test database if `.spring-config.json` has `test_mode`
+> set to `build-and-test` — it will spin up a real PostgreSQL instance for the test run.
+> For `build-only` mode, skip this test or use H2 in-memory.
+
+Run: `./gradlew test` before committing.
+
+---
+
 ## Step 11 — Git commit
 
 ```bash
