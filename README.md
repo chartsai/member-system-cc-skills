@@ -85,7 +85,7 @@ Written by `springboot-setup`, read by every other skill:
 
 ---
 
-## All skills (22 total)
+## All skills (26 total)
 
 ### 🗺️ Navigation
 
@@ -118,6 +118,10 @@ Written by `springboot-setup`, read by every other skill:
 | `springboot-audit-log` | Audit trail: who changed what, when — filterable admin view |
 | `springboot-integration-tests` | Auto-generates integration tests based on installed modules |
 | `springboot-deploy` | Dockerfile, Cloud Build CI, `deploy.sh` for Cloud Run |
+| `springboot-i18n` | Multi-language UI — Spring MessageSource, locale switcher, message property files (EN / 繁中 / 日) |
+| `springboot-notifications` | In-app notification bell with unread badge, REST polling, mark-as-read, per-member feed |
+| `springboot-search` | PostgreSQL full-text search (tsvector/tsquery) — search bar, results page, CJK trigram support |
+| `springboot-content` | CMS / blog — articles, categories, tags, Quill.js rich text editor, SEO Open Graph meta tags |
 
 > **Unit tests**: All feature modules generate unit tests as part of the implementation.
 > Tests are written in Kotlin using JUnit 5 and follow Spring Boot testing conventions
@@ -175,6 +179,16 @@ DEVOPS:
 ════════════════════════════════════════════════════════════════
 springboot-integration-tests (needs: setup, scaffold, db + 2+ feature modules)
 springboot-deploy            (needs: setup, scaffold, db, gcp)
+
+LOCALIZATION & EXTRAS (install any time after foundation):
+════════════════════════════════════════════════════════════════
+springboot-i18n              (needs: setup, scaffold)
+springboot-notifications     (needs: setup, scaffold, db, membership)
+springboot-search            (needs: setup, scaffold, db)
+                             (soft: membership, content, announcements → more entities indexed)
+springboot-content           (needs: setup, scaffold, db, membership)
+                             (soft: search → articles become searchable)
+                             (soft: notifications → notify members on publish)
 ```
 
 **Hard prerequisite** = skill will fail with an error if missing
@@ -205,6 +219,10 @@ springboot-deploy            (needs: setup, scaffold, db, gcp)
 17. springboot-audit-log
 18. springboot-integration-tests
 19. springboot-deploy
+20. springboot-i18n             (optional — add multi-language support any time after scaffold)
+21. springboot-search           (optional — indexes whatever entities are already installed)
+22. springboot-notifications    (optional — after membership)
+23. springboot-content          (optional — after membership)
 ```
 
 ---
@@ -342,7 +360,7 @@ claude
 
 ---
 
-## 全部模組（共 22 個）
+## 全部模組（共 26 個）
 
 ### 🗺️ 選單與導引
 
@@ -375,6 +393,10 @@ claude
 | `springboot-audit-log` | 操作稽核記錄：誰改了什麼、何時改的 |
 | `springboot-integration-tests` | 根據已安裝模組自動產生整合測試 |
 | `springboot-deploy` | Dockerfile、Cloud Build CI、`deploy.sh` 部署到 Cloud Run |
+| `springboot-i18n` | 多語言 UI 支援 — Spring MessageSource、語言切換器、繁中/英/日訊息檔 |
+| `springboot-notifications` | 站內通知鈴鐺，含未讀徽章、REST 輪詢、標記已讀、個人通知列表 |
+| `springboot-search` | PostgreSQL 全文搜尋（tsvector/tsquery）— 搜尋欄、結果頁、CJK 三元組支援 |
+| `springboot-content` | CMS / 部落格系統 — 文章、分類、標籤、Quill.js 富文字編輯器、SEO Open Graph meta 標籤 |
 
 > **單元測試**：所有功能模組在實作過程中都會產生單元測試。
 > 測試使用 Kotlin + JUnit 5 撰寫，遵循 Spring Boot 測試慣例
@@ -432,6 +454,16 @@ DevOps：
 ════════════════════════════════════════════════════════════════
 springboot-integration-tests （需要：setup, scaffold, db + 2 個以上功能模組）
 springboot-deploy            （需要：setup, scaffold, db, gcp）
+
+本地化與擴充功能（基礎完成後可隨時安裝）：
+════════════════════════════════════════════════════════════════
+springboot-i18n              （需要：setup, scaffold）
+springboot-notifications     （需要：setup, scaffold, db, membership）
+springboot-search            （需要：setup, scaffold, db）
+                             （軟性：membership, content, announcements → 索引更多實體）
+springboot-content           （需要：setup, scaffold, db, membership）
+                             （軟性：search → 文章可被搜尋）
+                             （軟性：notifications → 發布時通知會員）
 ```
 
 **強制相依（Hard）** = 缺少時技能會停止並報錯
@@ -462,6 +494,10 @@ springboot-deploy            （需要：setup, scaffold, db, gcp）
 17. springboot-audit-log
 18. springboot-integration-tests
 19. springboot-deploy
+20. springboot-i18n             （選用 — 多語言支援，scaffold 完成後任何時候都可裝）
+21. springboot-search           （選用 — 索引已安裝的實體）
+22. springboot-notifications    （選用 — 需要 membership）
+23. springboot-content          （選用 — 需要 membership）
 ```
 
 ---
