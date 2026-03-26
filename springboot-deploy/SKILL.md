@@ -374,6 +374,18 @@ Deploy:
   □ Visit the Cloud Run URL and test login
 ```
 
+> 🔗 **Useful Console links** — substitute your `gcp_project_id` value from `.spring-config.json`:
+>
+> - Cloud Run services: `https://console.cloud.google.com/run?project={{gcp_project_id}}`
+> - Artifact Registry: `https://console.cloud.google.com/artifacts?project={{gcp_project_id}}`
+> - Cloud Build history: `https://console.cloud.google.com/cloud-build/builds?project={{gcp_project_id}}`
+> - Cloud SQL instances: `https://console.cloud.google.com/sql/instances?project={{gcp_project_id}}`
+> - Secret Manager: `https://console.cloud.google.com/security/secret-manager?project={{gcp_project_id}}`
+> - Logs Explorer: `https://console.cloud.google.com/logs/query?project={{gcp_project_id}}`
+>
+> (When showing these links to the user, substitute the actual `gcp_project_id` value directly
+> into the URLs — do not show `{{gcp_project_id}}` literally.)
+
 ---
 
 ## Step 10 — Cloud Build trigger (optional)

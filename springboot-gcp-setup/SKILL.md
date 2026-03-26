@@ -16,6 +16,27 @@ Outputs a checklist of what was completed.
 
 ---
 
+## ⚠️ Pre-flight: What requires manual action
+
+Before running any `gcloud` commands, be aware of these steps that **cannot be automated**:
+
+| Step | How | Direct link |
+|---|---|---|
+| Install gcloud SDK | Download + run interactive installer (asks about PATH, usage stats) | https://cloud.google.com/sdk/docs/install |
+| Homebrew (Mac, if needed) | Run install script — requires sudo password | https://brew.sh |
+| `gcloud init` | Opens browser for Google sign-in, then interactive project/region selection | *(runs in terminal)* |
+| Billing account | Create or link — requires credit card if first time | https://console.cloud.google.com/billing |
+| OAuth Consent Screen | Form in Console — no CLI equivalent (done in `springboot-auth-google`) | *(link provided after project ID known)* |
+| OAuth Client ID/Secret | Create credentials in Console — no CLI equivalent | *(link provided after project ID known)* |
+
+> 💡 **Node.js note**: Some gcloud components (Firebase emulator, Cloud Functions) require Node.js.
+> If you're on Mac: `brew install node`. Otherwise: https://nodejs.org
+> Check for version conflicts if you already use Node.js for other projects.
+
+**Everything else** — enabling APIs, Cloud SQL, GCS, Artifact Registry, Service Account, Secret Manager, Cloud Run — **is fully automated** with the `gcloud` commands in this skill.
+
+---
+
 ## Step 0 — Read config
 
 Read `.spring-config.json`. Extract:
@@ -86,6 +107,8 @@ Stop here if gcloud is not installed.
 ## Step 3 — Authenticate and set project
 
 Run these commands one at a time, reporting output to the user:
+
+> 💡 `gcloud auth login` will open your browser automatically — just approve the Google sign-in.
 
 ```bash
 # Check current auth status
@@ -199,6 +222,17 @@ Also add `gcp-credentials-local.json` to `.gitignore` if it isn't already there.
 
 ## Step 8 — Steps that require the GCP Console (browser)
 
+> 🔗 **Manual step required — Billing Account**
+>
+> If you don't have a billing account yet, create one here (requires credit card):
+> **https://console.cloud.google.com/billing**
+>
+> Once you have a billing account, link it to your project here:
+> **https://console.cloud.google.com/billing/linkedaccount?project={{gcp_project_id}}**
+>
+> (When showing this link to the user, substitute the actual `gcp_project_id` value from
+> `.spring-config.json` directly into the URL — do not show `{{gcp_project_id}}` literally.)
+
 Tell the user these steps must be done manually in the browser:
 
 ```
@@ -252,6 +286,20 @@ GCP Setup Checklist:
 ```
 
 Adjust checkmarks based on which steps actually succeeded.
+
+---
+
+## Useful Console Links
+
+> 🔗 **Useful Console links** — when showing these to the user, substitute the actual
+> `gcp_project_id` value from `.spring-config.json` directly into the URLs:
+>
+> - Project dashboard: `https://console.cloud.google.com/home/dashboard?project={{gcp_project_id}}`
+> - IAM & Admin: `https://console.cloud.google.com/iam-admin/iam?project={{gcp_project_id}}`
+> - APIs & Services: `https://console.cloud.google.com/apis/dashboard?project={{gcp_project_id}}`
+> - Artifact Registry: `https://console.cloud.google.com/artifacts?project={{gcp_project_id}}`
+> - Service Accounts: `https://console.cloud.google.com/iam-admin/serviceaccounts?project={{gcp_project_id}}`
+> - Billing: `https://console.cloud.google.com/billing/linkedaccount?project={{gcp_project_id}}`
 
 ---
 

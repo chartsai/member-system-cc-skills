@@ -84,6 +84,60 @@ If `beginner_friendly` is `true` in `.spring-config.json`, explain key concepts 
 - When adding Spring Security: "Spring Security is a framework that protects your routes. We configure which URLs require login and which are public — Spring handles the rest automatically."
 - When creating `CustomOAuth2UserService`: "This class runs after Google confirms the user's identity. We use it to create or update our local `Member` record with the user's Google profile data."
 
+---
+
+## ⚠️ Manual Steps Required (Browser)
+
+These two steps have no gcloud CLI equivalent — you must do them in the browser.
+Read `gcp_project_id` from `.spring-config.json` and substitute it in the links below.
+
+> When showing these links to the user, substitute the actual `gcp_project_id` value from
+> `.spring-config.json` directly into the URL — do not show `YOUR_GCP_PROJECT_ID` literally.
+> Example: if `gcp_project_id` is `"my-app-123"`, show the full clickable URL.
+
+---
+
+### Manual Step A — Configure OAuth Consent Screen
+
+**Direct link** (opens your project's consent screen setup):
+```
+https://console.cloud.google.com/apis/credentials/consent?project=YOUR_GCP_PROJECT_ID
+```
+
+Fill in:
+1. **User Type**: Choose `External` (for public apps) or `Internal` (G Suite orgs only)
+2. **App name**: Your app's display name (e.g., "{{app_name}}")
+3. **User support email**: {{super_admin_email}}
+4. **Developer contact email**: {{super_admin_email}}
+5. Click **Save and Continue**
+6. On the Scopes screen: click **Add or Remove Scopes** → add `.../auth/userinfo.email` and `.../auth/userinfo.profile` → click **Update** → **Save and Continue**
+7. If External: Add your own email as a **Test user** during development → **Save and Continue**
+8. Review summary → **Back to Dashboard**
+
+---
+
+### Manual Step B — Create OAuth 2.0 Client ID
+
+**Direct link** (opens credentials page for your project):
+```
+https://console.cloud.google.com/apis/credentials?project=YOUR_GCP_PROJECT_ID
+```
+
+Steps:
+1. Click **+ Create Credentials** → **OAuth client ID**
+2. **Application type**: `Web application`
+3. **Name**: e.g., "{{app_name}} Web Client"
+4. Under **Authorized redirect URIs**, click **+ Add URI** and add:
+   - `http://localhost:8080/login/oauth2/code/google` (local dev)
+   - `{{app_url}}/login/oauth2/code/google` (production — add after deploy)
+5. Click **Create**
+6. Copy the **Client ID** and **Client Secret** — you'll need them in the next step
+
+> ⚡ **Direct link to create OAuth client** (skip the credentials list):
+> `https://console.cloud.google.com/apis/credentials/oauthclient?project=YOUR_GCP_PROJECT_ID`
+
+---
+
 ## Step 2 — Update `build.gradle.kts`
 
 Add to `dependencies {}`:
