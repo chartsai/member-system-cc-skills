@@ -1,41 +1,212 @@
-# Spring Boot Skills
+# 🍃 Spring Boot Skills
 
-A modular Claude skill system for scaffolding production-ready Spring Boot applications.
-Each skill is a self-contained directory with a `SKILL.md` file that Claude Code reads and executes.
+**26 modular Claude skills for building production-ready Spring Boot web apps — step by step.**
 
----
+> Stop copy-pasting boilerplate. Just run a skill, answer a few questions, and get working code.
 
-## How it works
-
-1. Copy skill directories to your Claude skills folder
-2. Claude detects which skill to run based on your message
-3. Skills read `.spring-config.json` from your project root for all configuration
-4. Each skill marks itself in `installed_modules` when complete
-5. Skills check prerequisites before running — they fail fast with clear error messages
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Skills: 26](https://img.shields.io/badge/Skills-26-blue.svg)](#all-26-skills)
+[![Spring Boot: 3.x](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Language: Kotlin](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org)
 
 ---
 
-## Quick start
+## What is this?
+
+A collection of **Claude AI skills** that guide you through building a full-featured Spring Boot web application — one module at a time. Each skill knows your project config, checks prerequisites, generates production-ready code, writes unit tests, and commits to git.
+
+**You don't need to be an expert.** Skills explain what they're doing as they go.
+
+Think of it as a **senior Spring Boot developer sitting next to you**, implementing features and teaching you along the way.
+
+---
+
+## What you'll build
+
+A full-stack membership web application with:
+
+- 🔐 **Authentication** — Google OAuth2 login or passwordless email magic links
+- 👥 **Membership system** — roles, approval workflow, admin portal
+- 📧 **Email** — templated emails, scheduled delivery, MailHog for local dev
+- 📁 **File uploads** — local dev + Google Cloud Storage in production
+- 📣 **Announcements** — admin broadcasts to members
+- 📊 **Stats & exports** — activity summaries, CSV/Excel/Sheets export
+- 🔍 **Search** — PostgreSQL full-text search, no Elasticsearch needed
+- 🔔 **Notifications** — in-app notification bell with unread count
+- 📝 **Content / Blog** — articles, categories, tags, Quill.js rich text editor
+- 🌐 **i18n** — multi-language UI (English, 繁體中文, Japanese, and more)
+- 📋 **Audit log** — who changed what, when
+- ☁️ **GCP deployment** — Dockerfile + Cloud Run + Secret Manager
+
+---
+
+## Prerequisites
+
+| Tool | Purpose | Install |
+|---|---|---|
+| [Claude](https://claude.ai) | Runs the skills | claude.ai |
+| [Java 21+](https://adoptium.net) | Spring Boot runtime | `brew install temurin` |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop) | Local PostgreSQL + MailHog | docker.com |
+| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE (Community edition is free) | jetbrains.com |
+| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | GCP deployment (optional) | cloud.google.com |
+
+---
+
+## Quick Start
+
+**1. Clone this repo and install the skills into Claude**
 
 ```bash
-# 1. Copy skills to Claude's skills folder
-cp -r ~/code/springboot-skills/* ~/.claude/skills/   # adjust path as needed
+git clone https://github.com/YOUR_USERNAME/springboot-skills.git
+```
 
-# 2. Create your project directory
-mkdir my-new-project && cd my-new-project
+Copy the skill folders into Claude's skills directory (location varies by Claude app — check Claude settings for the skills folder path).
 
-# 3. Open Claude Code
-claude
+**2. Create a new project folder and open Claude**
 
-# 4. Start with setup
-> Run springboot-setup
+```bash
+mkdir my-new-app && cd my-new-app
+```
+
+**3. Run the first skill**
+
+In Claude, say:
+
+```
+Run springboot-setup
+```
+
+Claude will ask ~13 questions (app name, package name, database, language, etc.) and create `.spring-config.json`. Then follow the install order below, one skill at a time.
+
+> **Lost?** Say `Run springboot-menu` at any point to see your project status, what's installed, what's next, and get active guidance.
+
+---
+
+## Recommended Install Order
+
+```
+0.  springboot-prototype-ui     ← optional: design your UI first (HTML mockups, no backend)
+1.  springboot-setup            ← ALWAYS FIRST — creates .spring-config.json
+2.  springboot-ide-setup        ← optional: IntelliJ IDEA setup guide
+3.  springboot-scaffold         ← generates the Spring Boot project
+4.  springboot-db-setup         ← PostgreSQL + Flyway + Docker Compose
+5.  springboot-app-config       ← DB-backed settings store
+6.  springboot-gcp-setup        ← Google Cloud setup (for deployment)
+7.  springboot-mail             ← SMTP email system
+8.  springboot-auth-google      ← Google OAuth2 login
+    springboot-auth-magic-link  ← or passwordless magic link (pick one or both)
+9.  springboot-membership       ← member entity, roles, admin list
+10. springboot-membership-apply ← public signup + approval workflow
+11. springboot-admin-portal     ← admin "preview as member" feature
+12. springboot-file-upload      ← file uploads (local + GCS)
+13. springboot-item-submit      ← member submission system
+14. springboot-announcements    ← admin broadcast announcements
+15. springboot-stats-summary    ← activity statistics
+16. springboot-data-export      ← CSV / Excel / Google Sheets export
+17. springboot-audit-log        ← audit trail
+18. springboot-integration-tests← integration test strategy
+19. springboot-deploy           ← Cloud Run deployment
+--- optional, add any time after the foundation ---
+20. springboot-i18n             ← multi-language UI
+21. springboot-search           ← full-text search
+22. springboot-notifications    ← in-app notification bell
+23. springboot-content          ← blog / CMS with rich text editor
 ```
 
 ---
 
-## `.spring-config.json` format
+## All 26 Skills
 
-Written by `springboot-setup`, read by every other skill:
+### 🗺️ Navigation
+
+| Skill | Description |
+|---|---|
+| `springboot-menu` | **Start here when lost.** Shows project status (✅ installed / ⬜ ready / 🔒 blocked), recommends next step, and acts as an active mentor — diagnoses problems, maps goals to modules, guides next steps. Works even before setup. |
+
+### 🏗️ Foundation
+
+| Skill | Description |
+|---|---|
+| `springboot-setup` | Config wizard — ~13 questions → writes `.spring-config.json` |
+| `springboot-scaffold` | Spring Boot project: Gradle (Kotlin DSL), Thymeleaf, Tailwind CSS, Spring Security |
+| `springboot-db-setup` | PostgreSQL + Flyway migrations + Docker Compose for local dev |
+| `springboot-app-config` | DB-backed key-value settings with admin UI |
+| `springboot-mail` | Email system: Thymeleaf templates, rules engine, scheduled sending, MailHog for local dev |
+
+### ☁️ GCP & Deployment
+
+| Skill | Description |
+|---|---|
+| `springboot-gcp-setup` | gcloud CLI setup: project, APIs, Artifact Registry, Service Account, Cloud SQL. Includes a pre-flight checklist of which steps need browser action (billing, `gcloud init`) and direct Console links. |
+| `springboot-deploy` | Dockerfile + Cloud Build CI + `deploy.sh` for Cloud Run — direct Console links for Cloud Run, Logs, Artifact Registry |
+
+### 🔐 Authentication
+
+| Skill | Description |
+|---|---|
+| `springboot-auth-google` | Google OAuth2 login with Spring Security. Includes step-by-step OAuth Consent Screen setup with **direct GCP Console deep links** — no hunting through menus. |
+| `springboot-auth-magic-link` | Passwordless email magic link login — works with any email address, no Google account needed |
+
+### 👥 Membership
+
+| Skill | Description |
+|---|---|
+| `springboot-membership` | Member entity, roles (MEMBER / ADMIN / SUPER_ADMIN), admin member list |
+| `springboot-membership-apply` | Public `/apply` form + admin approve/reject workflow with email notifications |
+| `springboot-admin-portal` | Admin "preview as member" with session-based state switching |
+
+### 🧩 Features
+
+| Skill | Description |
+|---|---|
+| `springboot-file-upload` | File storage — local filesystem for dev, Google Cloud Storage for production |
+| `springboot-item-submit` | Member submission system with admin review queue |
+| `springboot-announcements` | Admin broadcast announcements shown on member dashboard |
+| `springboot-stats-summary` | Period-based activity aggregation, thresholds, progress tracking |
+| `springboot-data-export` | Export to CSV, Excel, or Google Sheets with configurable field mapping |
+| `springboot-i18n` | Multi-language UI — Spring MessageSource, locale switcher, EN / 繁中 / 日 |
+| `springboot-notifications` | In-app notification bell with unread badge, REST polling, mark-as-read |
+| `springboot-search` | PostgreSQL full-text search (tsvector) — search bar, results page, CJK trigram support |
+| `springboot-content` | CMS / blog — articles, categories, tags, Quill.js rich text editor, SEO Open Graph meta |
+
+### 🔍 Quality & Observability
+
+| Skill | Description |
+|---|---|
+| `springboot-audit-log` | Audit trail: who changed what, when — filterable admin view |
+| `springboot-integration-tests` | Auto-generates integration tests based on your installed modules |
+
+### 🎨 Optional
+
+| Skill | Description |
+|---|---|
+| `springboot-prototype-ui` | Design-first: generates two self-contained HTML mockups (member portal + admin portal) — run before writing any backend code |
+| `springboot-ide-setup` | IntelliJ IDEA setup walkthrough |
+
+---
+
+## How Skills Work
+
+Each skill is a `SKILL.md` file with instructions that Claude follows. When you run a skill:
+
+1. Claude reads `.spring-config.json` (created by `springboot-setup`)
+2. Checks prerequisites — tells you exactly what's missing if something isn't installed yet
+3. Asks a few clarifying questions
+4. Generates all the code, SQL migrations, config files, and Thymeleaf templates
+5. Writes unit tests
+6. Commits to git
+
+**Language-aware.** Set `"language": "繁體中文"` and every skill responds in Traditional Chinese — code comments, UI copy, and explanations. Traditional Chinese (繁體中文) and Simplified Chinese (简体中文) are treated as distinct writing systems and are never mixed.
+
+**Beginner-friendly mode.** Set `"beginner_friendly": true` and skills explain what they're doing in plain language as they work.
+
+**Prerequisite tracking.** `installed_modules` in `.spring-config.json` tracks what's been applied. Skills fail gracefully if a dependency is missing and tell you exactly what to install first.
+
+---
+
+## `.spring-config.json`
+
+All 26 skills share this config file, created automatically by `springboot-setup`:
 
 ```json
 {
@@ -46,486 +217,329 @@ Written by `springboot-setup`, read by every other skill:
   "super_admin_email": "admin@example.com",
   "db_name": "myapp_db",
   "gcp_project_id": "my-gcp-project",
-  "gcp_region": "us-central1",
-  "language": "en",
+  "gcp_region": "asia-east1",
+  "language": "繁體中文",
   "translate_terms": false,
   "test_mode": "build-and-test",
   "soft_delete": true,
   "beginner_friendly": false,
-  "installed_modules": []
+  "installed_modules": ["setup", "scaffold", "db"]
 }
 ```
 
-### Config fields
+| Field | Description |
+|---|---|
+| `language` | All skill output language. `"繁體中文"` for Traditional Chinese, `"English"`, `"日本語"`, etc. |
+| `test_mode` | `"build-and-test"` runs tests after generating, `"build-only"` generates only, `"token-save"` skips test code |
+| `soft_delete` | All deletes set `deleted_at` timestamp instead of hard-deleting rows (default: `true`) |
+| `beginner_friendly` | Skills explain technical terms inline as they work |
+| `installed_modules` | Array of installed module keys — used for prerequisite checks across all skills |
 
-| Field | Type | Description |
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Spring Boot 3.x |
+| Language | Kotlin |
+| Build | Gradle (Kotlin DSL) |
+| Templates | Thymeleaf |
+| CSS | Tailwind CSS (CDN) |
+| Database | PostgreSQL |
+| Migrations | Flyway |
+| Auth | Spring Security + OAuth2 / Magic Links |
+| Email | Spring Mail + MailHog (local) |
+| Storage | Local filesystem / Google Cloud Storage |
+| Deployment | Docker + Google Cloud Run |
+| Testing | JUnit 5 + Testcontainers |
+| Rich Text | Quill.js (CDN) |
+
+---
+
+## Contributing
+
+PRs welcome. To add a new skill:
+
+1. Create `springboot-yourfeature/SKILL.md` following the existing pattern
+2. Include: config reading, prerequisites check, language activation, beginner-friendly mode, unit tests, git commit step, `installed_modules` update
+3. Update `README.md` module table
+4. Open a PR
+
+---
+
+## License
+
+MIT — use freely, build great things.
+
+---
+---
+
+# 🍃 Spring Boot Skills（繁體中文說明）
+
+**26 個模組化 Claude 技能，逐步引導你建立 production-ready 的 Spring Boot 網站。**
+
+> 不用再複製貼上樣板程式碼。執行技能、回答幾個問題，就能得到可運行的程式碼。
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+---
+
+## 這是什麼？
+
+一套 **Claude AI 技能**，引導你一步一步建立完整的 Spring Boot 網站——每次安裝一個模組。每個技能都了解你的專案設定、檢查前置需求、生成 production-ready 程式碼、撰寫單元測試，並提交到 git。
+
+**不需要是專家。** 技能會邊做邊解釋它在做什麼。
+
+把它想成是一個**資深 Spring Boot 工程師坐在你旁邊**，一邊實作功能、一邊教你。
+
+---
+
+## 你將建立什麼
+
+一個完整的會員制網站，包含：
+
+- 🔐 **身分驗證** — Google OAuth2 登入或無密碼 Email 魔法連結
+- 👥 **會員系統** — 角色、審核流程、管理後台
+- 📧 **Email** — 樣板化 Email、排程發送、本機 MailHog 測試
+- 📁 **檔案上傳** — 本機開發 + 正式環境 Google Cloud Storage
+- 📣 **公告系統** — 管理員廣播給會員
+- 📊 **統計與匯出** — 活動摘要、CSV/Excel/Google Sheets 匯出
+- 🔍 **搜尋** — PostgreSQL 全文搜尋，不需要 Elasticsearch
+- 🔔 **站內通知** — 通知鈴鐺與未讀計數
+- 📝 **內容 / 部落格** — 文章、分類、標籤、Quill.js 富文字編輯器
+- 🌐 **多語言** — 繁體中文 / English / 日本語 UI
+- 📋 **稽核記錄** — 誰在何時改了什麼
+- ☁️ **GCP 部署** — Dockerfile + Cloud Run + Secret Manager
+
+---
+
+## 環境需求
+
+| 工具 | 用途 | 安裝方式 |
 |---|---|---|
-| `app_name` | string | Application name (used in titles, branding) |
-| `brand_name` | string | Company/brand name (used in footers, emails) |
-| `base_package` | string | Java package root, e.g. `com.example.myapp` |
-| `app_url` | string | Production URL (no trailing slash) |
-| `super_admin_email` | string | First admin account email |
-| `db_name` | string | PostgreSQL database name |
-| `gcp_project_id` | string | GCP project ID, or `"TBD"` |
-| `gcp_region` | string | GCP region, e.g. `"us-central1"` |
-| `language` | string | Claude response language (`"English"`, `"Traditional Chinese"`, etc.) |
-| `translate_terms` | bool | Translate technical terms to response language? |
-| `test_mode` | string | `"token-save"` / `"build-only"` / `"build-and-test"` |
-| `soft_delete` | bool | Use `deleted_at` pattern (default: `true`) |
-| `beginner_friendly` | bool | Explain technical terms inline (default: `false`) |
-| `installed_modules` | array | Tracked by skills — do not edit manually |
-
-### `test_mode` options
-
-| Value | Behavior |
-|---|---|
-| `"token-save"` | Skip all test execution and test file creation |
-| `"build-only"` | Run `./gradlew build -x test` — verify compilation only |
-| `"build-and-test"` | Run `./gradlew build` — full build including all tests |
-
----
-
-## All skills (26 total)
-
-### 🗺️ Navigation
-
-| Skill | What it does |
-|---|---|
-| `springboot-menu` | **Project status dashboard + guided workflow.** Shows which modules are installed, what's ready to install next, and what's blocked. Acts as an active mentor: maps goals to modules, diagnoses problems, and guides you step-by-step. Works even before setup. |
-
-### All modules
-
-| Skill | What it does |
-|---|---|
-| `springboot-prototype-ui` | **Optional but recommended — run before scaffold to validate the design.** Interactive design session → two self-contained HTML prototypes (member portal + admin portal) with domain-appropriate fake data. Open in any browser, no server needed. |
-| `springboot-setup` | **Start here.** Collects config, writes `.spring-config.json` |
-| `springboot-ide-setup` | Optional: Configure IntelliJ IDEA for the project |
-| `springboot-scaffold` | Create Spring Boot project (Gradle, Thymeleaf, Tailwind, Security) |
-| `springboot-db-setup` | Add PostgreSQL, Flyway, Docker Compose dev DB |
-| `springboot-app-config` | DB-backed key-value settings with admin UI |
-| `springboot-gcp-setup` | GCP project setup (APIs, Artifact Registry, Service Account) |
-| `springboot-auth-google` | Google OAuth2 login with Spring Security |
-| `springboot-auth-magic-link` | Passwordless email magic link login |
-| `springboot-membership` | Member profiles, roles (MEMBER/ADMIN/SUPER_ADMIN), admin list |
-| `springboot-membership-apply` | Public application form + admin approve/reject workflow |
-| `springboot-admin-portal` | Admin "preview as member" with session-based state |
-| `springboot-mail` | Email system: DB templates, rules engine, scheduled sending |
-| `springboot-file-upload` | File upload with local (dev) and GCS (prod) storage |
-| `springboot-item-submit` | Member submission system with admin review queue |
-| `springboot-announcements` | Admin broadcast announcements on member dashboard |
-| `springboot-stats-summary` | Period-based activity aggregation, progress tracking, thresholds |
-| `springboot-data-export` | CSV/Excel/Google Sheets export with field mapping |
-| `springboot-audit-log` | Audit trail: who changed what, when — filterable admin view |
-| `springboot-integration-tests` | Auto-generates integration tests based on installed modules |
-| `springboot-deploy` | Dockerfile, Cloud Build CI, `deploy.sh` for Cloud Run |
-| `springboot-i18n` | Multi-language UI — Spring MessageSource, locale switcher, message property files (EN / 繁中 / 日) |
-| `springboot-notifications` | In-app notification bell with unread badge, REST polling, mark-as-read, per-member feed |
-| `springboot-search` | PostgreSQL full-text search (tsvector/tsquery) — search bar, results page, CJK trigram support |
-| `springboot-content` | CMS / blog — articles, categories, tags, Quill.js rich text editor, SEO Open Graph meta tags |
-
-> **Unit tests**: All feature modules generate unit tests as part of the implementation.
-> Tests are written in Kotlin using JUnit 5 and follow Spring Boot testing conventions
-> (`@SpringBootTest` for integration tests, plain JUnit for unit logic). The `test_mode`
-> config field controls whether tests are run during installation: `build-and-test` runs them,
-> `build-only` generates them without running, `token-save` skips test code generation.
-
----
-
-## Dependency graph
-
-```
-OPTIONAL — run before everything else to validate design:
-════════════════════════════════════════════════════════════════
-springboot-prototype-ui   (no deps — run any time, no backend needed)
-
-FOUNDATION (install in this order):
-════════════════════════════════════════════════════════════════
-springboot-setup          (no deps — always first)
-  └── springboot-ide-setup    (optional, no deps)
-  └── springboot-scaffold     (needs: setup)
-        └── springboot-db-setup         (needs: setup, scaffold)
-              └── springboot-app-config (needs: setup, scaffold, db)
-              └── springboot-audit-log  (needs: setup, scaffold, db)
-              └── springboot-mail       (needs: setup, scaffold, db)
-
-GCP (can be done in parallel with db-setup):
-════════════════════════════════════════════════════════════════
-springboot-gcp-setup      (needs: setup only)
-
-AUTH (pick at least one):
-════════════════════════════════════════════════════════════════
-springboot-auth-google      (needs: setup, scaffold, db, gcp ← HARD DEP)
-springboot-auth-magic-link  (needs: setup, scaffold, db, mail ← HARD DEP)
-
-MEMBERSHIP (needs at least one auth module):
-════════════════════════════════════════════════════════════════
-springboot-membership        (needs: setup, scaffold, db, auth-google OR auth-magic-link)
-springboot-membership-apply  (needs: setup, scaffold, db, mail, membership)
-springboot-admin-portal      (needs: setup, scaffold, db, membership)
-
-FEATURES (most need membership):
-════════════════════════════════════════════════════════════════
-springboot-file-upload       (needs: setup, scaffold, db)
-                             (soft: gcp → enables GCS storage)
-springboot-item-submit       (needs: setup, scaffold, db, membership)
-springboot-announcements     (needs: setup, scaffold, db, membership)
-                             (soft: mail → email notifications)
-springboot-stats-summary     (needs: setup, scaffold, db, membership)
-                             (soft: item-submit, app-config, data-export)
-springboot-data-export       (needs: setup, scaffold, db, membership)
-                             (soft: gcp → Google Sheets export)
-
-DEVOPS:
-════════════════════════════════════════════════════════════════
-springboot-integration-tests (needs: setup, scaffold, db + 2+ feature modules)
-springboot-deploy            (needs: setup, scaffold, db, gcp)
-
-LOCALIZATION & EXTRAS (install any time after foundation):
-════════════════════════════════════════════════════════════════
-springboot-i18n              (needs: setup, scaffold)
-springboot-notifications     (needs: setup, scaffold, db, membership)
-springboot-search            (needs: setup, scaffold, db)
-                             (soft: membership, content, announcements → more entities indexed)
-springboot-content           (needs: setup, scaffold, db, membership)
-                             (soft: search → articles become searchable)
-                             (soft: notifications → notify members on publish)
-```
-
-**Hard prerequisite** = skill will fail with an error if missing
-**Soft prerequisite** = skill degrades gracefully (feature disabled, with a note)
-
----
-
-## Recommended install order for a full app
-
-```
-0.  springboot-prototype-ui     (optional — run before anything else to validate the design)
-1.  springboot-setup
-2.  springboot-ide-setup        (optional — if new to the toolchain)
-3.  springboot-scaffold
-4.  springboot-db-setup
-5.  springboot-app-config       (install early — other modules use it)
-6.  springboot-gcp-setup        (can do in parallel with steps 4-5)
-7.  springboot-mail             (install before auth-magic-link and membership-apply)
-8.  springboot-auth-google      (or auth-magic-link, or both)
-9.  springboot-membership
-10. springboot-membership-apply
-11. springboot-admin-portal
-12. springboot-file-upload
-13. springboot-item-submit
-14. springboot-announcements
-15. springboot-stats-summary
-16. springboot-data-export
-17. springboot-audit-log
-18. springboot-integration-tests
-19. springboot-deploy
-20. springboot-i18n             (optional — add multi-language support any time after scaffold)
-21. springboot-search           (optional — indexes whatever entities are already installed)
-22. springboot-notifications    (optional — after membership)
-23. springboot-content          (optional — after membership)
-```
-
----
-
-## Skill directory structure
-
-```
-skill-name/
-├── SKILL.md          ← required — YAML frontmatter + instructions
-└── references/       ← optional reference files (SQL, config templates, etc.)
-```
-
-`SKILL.md` frontmatter format:
-
-```yaml
----
-name: skill-name
-description: >
-  When to trigger and what it does.
-  Be specific and "pushy" about triggering — list exact phrases.
----
-```
-
----
-
-## Reference material
-
-These skills were built from real production patterns collected in `~/code/springboot-prompts/`.
-Tech stack: Java 21, Spring Boot 3.x, Thymeleaf SSR, Spring Security, JPA + PostgreSQL,
-Flyway, Gradle (Kotlin DSL), Google Cloud Run.
-
----
-
----
-
-# 繁體中文說明
-
-## Spring Boot Skills 模組化技能系統
-
-這是一套供 Claude Code 使用的模組化 Spring Boot 專案建置技能系統。
-每個技能是一個獨立的資料夾，包含 `SKILL.md` 文件，Claude 會讀取並執行其中的指令。
-
----
-
-## 運作方式
-
-1. 將技能資料夾複製到 Claude 的 skills 資料夾
-2. Claude 根據你的訊息自動判斷要執行哪個技能
-3. 每個技能從專案根目錄的 `.spring-config.json` 讀取設定
-4. 技能完成後，會將自己記錄在 `installed_modules` 陣列中
-5. 技能會在執行前檢查前置條件，若不滿足會立即給出明確的錯誤訊息
+| [Claude](https://claude.ai) | 執行技能 | claude.ai |
+| [Java 21+](https://adoptium.net) | Spring Boot 執行環境 | `brew install temurin` |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop) | 本機 PostgreSQL + MailHog | docker.com |
+| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE（Community 版免費） | jetbrains.com |
+| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | GCP 部署（選用） | cloud.google.com |
 
 ---
 
 ## 快速開始
 
+**1. Clone 並安裝技能**
+
 ```bash
-# 1. 將技能複製到 Claude 的 skills 資料夾
-cp -r ~/code/springboot-skills/* ~/.claude/skills/
-
-# 2. 建立你的專案資料夾
-mkdir my-new-project && cd my-new-project
-
-# 3. 開啟 Claude Code
-claude
-
-# 4. 從 setup 開始
-> 執行 springboot-setup
+git clone https://github.com/YOUR_USERNAME/springboot-skills.git
 ```
+
+將技能資料夾複製到 Claude 的技能目錄（路徑依 Claude 應用程式設定而異）。
+
+**2. 建立新的專案資料夾**
+
+```bash
+mkdir my-new-app && cd my-new-app
+```
+
+**3. 在 Claude 中執行第一個技能**
+
+```
+執行 springboot-setup
+```
+
+Claude 會問你約 13 個問題並建立 `.spring-config.json`，接著按照建議順序逐步安裝模組。
+
+> **迷失方向？** 隨時說 `執行 springboot-menu`，查看專案狀態、已安裝模組、下一步建議，並獲得主動引導。
+
+---
+
+## 建議安裝順序
+
+```
+0.  springboot-prototype-ui     ← 選用：先設計 UI（HTML 原型，不需後端）
+1.  springboot-setup            ← 必須最先執行 — 建立 .spring-config.json
+2.  springboot-ide-setup        ← 選用：IntelliJ IDEA 設定指南
+3.  springboot-scaffold         ← 產生 Spring Boot 專案骨架
+4.  springboot-db-setup         ← PostgreSQL + Flyway + Docker Compose
+5.  springboot-app-config       ← 資料庫設定儲存系統
+6.  springboot-gcp-setup        ← Google Cloud 設定（部署時需要）
+7.  springboot-mail             ← SMTP Email 系統
+8.  springboot-auth-google      ← Google OAuth2 登入
+    springboot-auth-magic-link  ← 或無密碼魔法連結登入（擇一或兩者都裝）
+9.  springboot-membership       ← 會員實體、角色、管理員清單
+10. springboot-membership-apply ← 公開申請表單 + 審核流程
+11. springboot-admin-portal     ← 管理員「以會員身份預覽」功能
+12. springboot-file-upload      ← 檔案上傳
+13. springboot-item-submit      ← 會員提交系統
+14. springboot-announcements    ← 公告廣播
+15. springboot-stats-summary    ← 活動統計
+16. springboot-data-export      ← CSV / Excel / Google Sheets 匯出
+17. springboot-audit-log        ← 稽核記錄
+18. springboot-integration-tests← 整合測試策略
+19. springboot-deploy           ← Cloud Run 部署
+--- 選用，基礎完成後任何時候都可安裝 ---
+20. springboot-i18n             ← 多語言 UI
+21. springboot-search           ← 全文搜尋
+22. springboot-notifications    ← 站內通知鈴鐺
+23. springboot-content          ← 部落格 / CMS
+```
+
+---
+
+## 全部 26 個技能
+
+### 🗺️ 選單與導引
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-menu` | **迷失時從這裡開始。** 顯示專案狀態（✅ 已安裝 / ⬜ 可安裝 / 🔒 尚未解鎖）、推薦下一步，並作為主動導師 — 診斷問題、對應目標到模組、逐步引導。即使在 setup 之前也能使用。 |
+
+### 🏗️ 基礎
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-setup` | 設定精靈 — 約 13 個問題 → 建立 `.spring-config.json` |
+| `springboot-scaffold` | Spring Boot 專案骨架：Gradle（Kotlin DSL）、Thymeleaf、Tailwind CSS、Spring Security |
+| `springboot-db-setup` | PostgreSQL + Flyway 資料庫版本控制 + Docker Compose 本機開發 |
+| `springboot-app-config` | 資料庫 key-value 設定系統，附管理員介面 |
+| `springboot-mail` | Email 系統：Thymeleaf 樣板、規則引擎、排程發送、本機 MailHog |
+
+### ☁️ GCP 與部署
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-gcp-setup` | gcloud CLI 設定：專案、API 啟用、Artifact Registry、Service Account、Cloud SQL。包含前置檢查清單，說明哪些步驟需要瀏覽器操作（帳單、`gcloud init`）並附上 Console 直連連結。 |
+| `springboot-deploy` | Dockerfile + Cloud Build CI + `deploy.sh` 部署到 Cloud Run — 附 Cloud Run、Log、Artifact Registry Console 直連連結 |
+
+### 🔐 身分驗證
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-auth-google` | Google OAuth2 登入。包含 OAuth 同意畫面逐步設定指南，附 **GCP Console 直連連結** — 不用在選單中找。 |
+| `springboot-auth-magic-link` | 無密碼 Email 魔法連結登入 — 適用任何 Email，不需要 Google 帳戶 |
+
+### 👥 會員系統
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-membership` | 會員實體、角色（MEMBER / ADMIN / SUPER_ADMIN）、管理員清單 |
+| `springboot-membership-apply` | 公開 `/apply` 申請表單 + 管理員審核/拒絕流程（含 Email 通知） |
+| `springboot-admin-portal` | 管理員「以會員身份預覽」功能（Session 狀態切換） |
+
+### 🧩 功能模組
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-file-upload` | 檔案上傳 — 本機開發用本機儲存、正式環境用 GCS |
+| `springboot-item-submit` | 會員提交系統，管理員審核佇列 |
+| `springboot-announcements` | 管理員廣播公告，顯示在會員儀表板 |
+| `springboot-stats-summary` | 依時間週期統計活動，門檻值設定，進度追蹤 |
+| `springboot-data-export` | CSV / Excel / Google Sheets 匯出，欄位映射設定 |
+| `springboot-i18n` | 多語言 UI — Spring MessageSource、語言切換器、繁中/英/日訊息檔 |
+| `springboot-notifications` | 站內通知鈴鐺，含未讀徽章、REST 輪詢、標記已讀 |
+| `springboot-search` | PostgreSQL 全文搜尋（tsvector）— 搜尋欄、結果頁、CJK 三元組支援 |
+| `springboot-content` | CMS / 部落格 — 文章、分類、標籤、Quill.js 富文字編輯器、SEO Open Graph |
+
+### 🔍 品質與可觀測性
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-audit-log` | 稽核記錄：誰在何時改了什麼 — 可過濾的管理員介面 |
+| `springboot-integration-tests` | 根據已安裝模組自動產生整合測試策略與測試程式碼 |
+
+### 🎨 選用
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-prototype-ui` | 設計優先：產生兩個獨立 HTML 原型（會員入口 + 管理後台）— 建議在寫後端之前先執行 |
+| `springboot-ide-setup` | IntelliJ IDEA 設定完整指南 |
+
+---
+
+## 技能運作方式
+
+每個技能都是一個 `SKILL.md` 檔案，包含 Claude 的執行指示。執行技能時：
+
+1. Claude 讀取 `.spring-config.json`（由 `springboot-setup` 建立）
+2. 檢查前置需求 — 如果有缺少的東西，會精確告訴你缺什麼以及如何補齊
+3. 詢問幾個釐清問題
+4. 生成所有程式碼、SQL migration、設定檔和 Thymeleaf 樣板
+5. 撰寫單元測試
+6. 提交到 git
+
+**多語言支援。** 設定 `"language": "繁體中文"`，每個技能都用繁體中文回應——包含程式碼註解、生成的 HTML UI 文字和說明。繁體中文（zh-TW）與簡體中文（zh-CN）是不同的書寫系統，技能不會混用。
+
+**Beginner-friendly 模式。** 設定 `"beginner_friendly": true`，技能在執行時用白話文解釋每個技術概念。
+
+**前置需求追蹤。** `.spring-config.json` 中的 `installed_modules` 記錄已安裝的模組。技能在缺少相依性時會優雅地報錯，並告訴你需要先安裝什麼。
 
 ---
 
 ## `.spring-config.json` 設定格式
 
-由 `springboot-setup` 寫入，其他所有技能都會讀取：
+全部 26 個技能共用這個設定檔，由 `springboot-setup` 自動建立：
 
 ```json
 {
   "app_name": "MyApp",
-  "brand_name": "我的品牌",
+  "brand_name": "My Brand",
   "base_package": "com.example.myapp",
   "app_url": "https://myapp.com",
   "super_admin_email": "admin@example.com",
   "db_name": "myapp_db",
   "gcp_project_id": "my-gcp-project",
   "gcp_region": "asia-east1",
-  "language": "Traditional Chinese",
+  "language": "繁體中文",
   "translate_terms": false,
   "test_mode": "build-and-test",
   "soft_delete": true,
   "beginner_friendly": false,
-  "installed_modules": []
+  "installed_modules": ["setup", "scaffold", "db"]
 }
 ```
 
-### 設定欄位說明
-
-| 欄位 | 類型 | 說明 |
-|---|---|---|
-| `app_name` | string | 應用程式名稱（用於頁面標題、品牌） |
-| `brand_name` | string | 公司/品牌名稱（用於頁尾、Email） |
-| `base_package` | string | Java 套件根目錄，例如 `com.example.myapp` |
-| `app_url` | string | 正式環境 URL（結尾不含斜線） |
-| `super_admin_email` | string | 第一個管理員帳號的 Email |
-| `db_name` | string | PostgreSQL 資料庫名稱 |
-| `gcp_project_id` | string | GCP 專案 ID，或填 `"TBD"` |
-| `gcp_region` | string | GCP 區域，例如 `"asia-east1"` |
-| `language` | string | Claude 回覆語言（`"English"`、`"Traditional Chinese"` 等） |
-| `translate_terms` | bool | 是否翻譯技術術語（Controller、Service 等）？ |
-| `test_mode` | string | `"token-save"` / `"build-only"` / `"build-and-test"` |
-| `soft_delete` | bool | 使用 `deleted_at` 軟刪除模式（預設：`true`） |
-| `beginner_friendly` | bool | 是否在行文中說明技術術語（預設：`false`） |
-| `installed_modules` | array | 由技能自動管理，請勿手動修改 |
-
-### `test_mode` 選項
-
-| 值 | 行為 |
+| 欄位 | 說明 |
 |---|---|
-| `"token-save"` | 跳過所有測試執行與測試檔案建立（最節省 token） |
-| `"build-only"` | 執行 `./gradlew build -x test`，只驗證是否能編譯成功 |
-| `"build-and-test"` | 執行 `./gradlew build`，完整建置包含所有測試 |
-
-### `beginner_friendly` 說明
-
-設為 `true` 時，每個技能會在行文中主動說明技術術語，例如：
-> "我們正在加入 Flyway migration — 這是一個有版本號的 SQL 檔案，每次應用程式啟動時會自動執行，確保資料庫結構與程式碼保持同步。"
-
-適合剛接觸 Spring Boot / Java 的開發者。
-
-### `soft_delete` 說明
-
-設為 `true`（預設）時，所有刪除操作會在記錄上設定 `deleted_at` 時間戳記，而非真正從資料庫刪除。
-透過 Hibernate 的 `@SQLRestriction("deleted_at IS NULL")` 自動過濾已刪除的資料。
-管理員介面會提供「復原」功能，可還原被軟刪除的資料。
+| `language` | 所有技能的輸出語言。`"繁體中文"`、`"English"`、`"日本語"` 等 |
+| `test_mode` | `"build-and-test"` 執行測試、`"build-only"` 只產生不執行、`"token-save"` 略過測試生成 |
+| `soft_delete` | 所有刪除操作設定 `deleted_at` 時間戳記（不硬刪除）（預設：`true`） |
+| `beginner_friendly` | 技能在執行時內嵌解釋技術術語 |
+| `installed_modules` | 已安裝模組的鍵值陣列 — 用於所有技能的前置需求檢查 |
 
 ---
 
-## 全部模組（共 26 個）
+## 技術棧
 
-### 🗺️ 選單與導引
-
-| 技能 | 功能說明 |
+| 層次 | 技術 |
 |---|---|
-| `springboot-menu` | **專案狀態儀表板 + 引導式工作流程。** 顯示已安裝的模組、下一步可安裝的項目，以及尚未解鎖的模組。作為主動導師：將目標對應到模組、診斷問題、逐步引導你。即使在執行 setup 之前也能使用。 |
-
-### 所有模組
-
-| 技能 | 功能說明 |
-|---|---|
-| `springboot-prototype-ui` | **選用但強烈建議 — 在 scaffold 之前執行以驗證設計。** 互動式設計對話 → 兩個自帶假資料的獨立 HTML 原型（會員入口 + 管理後台）。直接用瀏覽器開啟，不需要伺服器。 |
-| `springboot-setup` | **從這裡開始。** 收集設定、寫入 `.spring-config.json` |
-| `springboot-ide-setup` | 選用：設定 IntelliJ IDEA 開發環境 |
-| `springboot-scaffold` | 建立 Spring Boot 專案（Gradle、Thymeleaf、Tailwind、Security） |
-| `springboot-db-setup` | 加入 PostgreSQL、Flyway、Docker Compose 本機資料庫 |
-| `springboot-app-config` | 資料庫儲存的 key-value 設定系統，附管理員介面 |
-| `springboot-gcp-setup` | GCP 專案設定（API 啟用、Artifact Registry、Service Account） |
-| `springboot-auth-google` | Google OAuth2 登入（Spring Security） |
-| `springboot-auth-magic-link` | 無密碼 Email 魔法連結登入 |
-| `springboot-membership` | 會員資料、角色（MEMBER/ADMIN/SUPER_ADMIN）、管理員清單 |
-| `springboot-membership-apply` | 公開申請表單 + 管理員審核流程 |
-| `springboot-admin-portal` | 管理員「以會員身份預覽」功能（Session 狀態管理） |
-| `springboot-mail` | Email 系統：資料庫樣板、規則引擎、排程發送 |
-| `springboot-file-upload` | 檔案上傳（本機開發 / GCS 正式環境雙後端） |
-| `springboot-item-submit` | 會員提交系統，管理員審核佇列 |
-| `springboot-announcements` | 管理員廣播公告，顯示在會員儀表板 |
-| `springboot-stats-summary` | 依時間週期統計活動，進度追蹤，可設定門檻值 |
-| `springboot-data-export` | CSV / Excel / Google Sheets 匯出，欄位映射設定 |
-| `springboot-audit-log` | 操作稽核記錄：誰改了什麼、何時改的 |
-| `springboot-integration-tests` | 根據已安裝模組自動產生整合測試 |
-| `springboot-deploy` | Dockerfile、Cloud Build CI、`deploy.sh` 部署到 Cloud Run |
-| `springboot-i18n` | 多語言 UI 支援 — Spring MessageSource、語言切換器、繁中/英/日訊息檔 |
-| `springboot-notifications` | 站內通知鈴鐺，含未讀徽章、REST 輪詢、標記已讀、個人通知列表 |
-| `springboot-search` | PostgreSQL 全文搜尋（tsvector/tsquery）— 搜尋欄、結果頁、CJK 三元組支援 |
-| `springboot-content` | CMS / 部落格系統 — 文章、分類、標籤、Quill.js 富文字編輯器、SEO Open Graph meta 標籤 |
-
-> **單元測試**：所有功能模組在實作過程中都會產生單元測試。
-> 測試使用 Kotlin + JUnit 5 撰寫，遵循 Spring Boot 測試慣例
-> （整合測試用 `@SpringBootTest`，單元邏輯用純 JUnit）。
-> `test_mode` 設定欄位控制安裝時是否執行測試：`build-and-test` 執行測試，
-> `build-only` 產生測試但不執行，`token-save` 略過測試程式碼生成。
+| 框架 | Spring Boot 3.x |
+| 語言 | Kotlin |
+| 建構工具 | Gradle（Kotlin DSL） |
+| 樣板引擎 | Thymeleaf |
+| CSS | Tailwind CSS（CDN） |
+| 資料庫 | PostgreSQL |
+| 資料庫版本控制 | Flyway |
+| 身分驗證 | Spring Security + OAuth2 / Magic Links |
+| Email | Spring Mail + MailHog（本機） |
+| 儲存 | 本機檔案系統 / Google Cloud Storage |
+| 部署 | Docker + Google Cloud Run |
+| 測試 | JUnit 5 + Testcontainers |
+| 富文字編輯器 | Quill.js（CDN） |
 
 ---
 
-## 相依關係圖
+## 貢獻
 
-```
-選用 — 可在一切之前執行以驗證設計：
-════════════════════════════════════════════════════════════════
-springboot-prototype-ui   （無相依 — 隨時可執行，不需要後端）
+歡迎 Pull Request！新增技能：
 
-基礎模組（按此順序安裝）：
-════════════════════════════════════════════════════════════════
-springboot-setup          （無相依 — 永遠最先）
-  └── springboot-ide-setup    （選用，無相依）
-  └── springboot-scaffold     （需要：setup）
-        └── springboot-db-setup         （需要：setup, scaffold）
-              └── springboot-app-config （需要：setup, scaffold, db）
-              └── springboot-audit-log  （需要：setup, scaffold, db）
-              └── springboot-mail       （需要：setup, scaffold, db）
-
-GCP（可與 db-setup 並行進行）：
-════════════════════════════════════════════════════════════════
-springboot-gcp-setup      （只需要：setup）
-
-驗證模組（至少選一）：
-════════════════════════════════════════════════════════════════
-springboot-auth-google      （需要：setup, scaffold, db, gcp ← 強制相依）
-springboot-auth-magic-link  （需要：setup, scaffold, db, mail ← 強制相依）
-
-會員系統（需要至少一個驗證模組）：
-════════════════════════════════════════════════════════════════
-springboot-membership        （需要：setup, scaffold, db, auth-google 或 auth-magic-link）
-springboot-membership-apply  （需要：setup, scaffold, db, mail, membership）
-springboot-admin-portal      （需要：setup, scaffold, db, membership）
-
-功能模組（大多需要 membership）：
-════════════════════════════════════════════════════════════════
-springboot-file-upload       （需要：setup, scaffold, db）
-                             （軟性：gcp → 啟用 GCS 儲存）
-springboot-item-submit       （需要：setup, scaffold, db, membership）
-springboot-announcements     （需要：setup, scaffold, db, membership）
-                             （軟性：mail → 啟用 Email 通知）
-springboot-stats-summary     （需要：setup, scaffold, db, membership）
-                             （軟性：item-submit, app-config, data-export）
-springboot-data-export       （需要：setup, scaffold, db, membership）
-                             （軟性：gcp → 啟用 Google Sheets 匯出）
-
-DevOps：
-════════════════════════════════════════════════════════════════
-springboot-integration-tests （需要：setup, scaffold, db + 2 個以上功能模組）
-springboot-deploy            （需要：setup, scaffold, db, gcp）
-
-本地化與擴充功能（基礎完成後可隨時安裝）：
-════════════════════════════════════════════════════════════════
-springboot-i18n              （需要：setup, scaffold）
-springboot-notifications     （需要：setup, scaffold, db, membership）
-springboot-search            （需要：setup, scaffold, db）
-                             （軟性：membership, content, announcements → 索引更多實體）
-springboot-content           （需要：setup, scaffold, db, membership）
-                             （軟性：search → 文章可被搜尋）
-                             （軟性：notifications → 發布時通知會員）
-```
-
-**強制相依（Hard）** = 缺少時技能會停止並報錯
-**軟性相依（Soft）** = 缺少時功能降級，並顯示說明訊息
+1. 建立 `springboot-yourfeature/SKILL.md`，遵循現有模式
+2. 必須包含：讀取設定、檢查前置需求、語言啟用、beginner-friendly 模式、單元測試、git commit 步驟、更新 `installed_modules`
+3. 更新 `README.md` 模組表格
+4. 開 PR
 
 ---
 
-## 建議安裝順序（完整應用程式）
+## 授權
 
-```
-0.  springboot-prototype-ui     （選用 — 建議在一切之前執行以驗證設計）
-1.  springboot-setup
-2.  springboot-ide-setup        （選用 — 適合剛接觸工具鏈的開發者）
-3.  springboot-scaffold
-4.  springboot-db-setup
-5.  springboot-app-config       （建議早裝 — 其他模組會使用它）
-6.  springboot-gcp-setup        （可與步驟 4-5 並行）
-7.  springboot-mail             （在 auth-magic-link 和 membership-apply 之前安裝）
-8.  springboot-auth-google      （或 auth-magic-link，或兩者都裝）
-9.  springboot-membership
-10. springboot-membership-apply
-11. springboot-admin-portal
-12. springboot-file-upload
-13. springboot-item-submit
-14. springboot-announcements
-15. springboot-stats-summary
-16. springboot-data-export
-17. springboot-audit-log
-18. springboot-integration-tests
-19. springboot-deploy
-20. springboot-i18n             （選用 — 多語言支援，scaffold 完成後任何時候都可裝）
-21. springboot-search           （選用 — 索引已安裝的實體）
-22. springboot-notifications    （選用 — 需要 membership）
-23. springboot-content          （選用 — 需要 membership）
-```
-
----
-
-## 技能目錄結構
-
-```
-skill-name/
-├── SKILL.md          ← 必要 — YAML frontmatter + 指令說明
-└── references/       ← 選用參考檔案（SQL、設定範本等）
-```
-
-`SKILL.md` frontmatter 格式：
-
-```yaml
----
-name: skill-name
-description: >
-  說明觸發時機與功能。
-  列出使用者可能說的具體語句，讓 Claude 能準確識別。
----
-```
-
----
-
-## 參考資料來源
-
-這些技能的實作模式來自 `~/code/springboot-prompts/` 中整理的真實生產專案模式。
-
-技術堆疊：Java 21、Spring Boot 3.x、Thymeleaf SSR、Spring Security、
-JPA + PostgreSQL、Flyway、Gradle（Kotlin DSL）、Google Cloud Run。
+MIT — 自由使用，建立美好的東西。
