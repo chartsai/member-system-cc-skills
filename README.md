@@ -111,23 +111,27 @@ cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
 
 > Skills are now available globally across all your projects.
 
-**2. Create a new project folder and open Claude**
+**2. Create a new project folder**
 
 ```bash
 mkdir my-new-app && cd my-new-app
 ```
 
-**3. Run the first skill**
-
-In Claude, say:
+**3. Launch Claude Code in the project folder**
 
 ```
-Run springboot-setup
+claude
 ```
 
-Claude will ask ~13 questions (app name, package name, database, language, etc.) and create `.spring-config.json`. Then follow the install order below, one skill at a time.
+**4. Run the first skill in Claude Code**
 
-> **Lost?** Say `Run springboot-menu` at any point to see your project status, what's installed, what's next, and get active guidance.
+```
+/springboot-setup
+```
+
+Claude will ask a few questions and create `.spring-config.json`. Then follow the install order below, one skill at a time.
+
+> **Lost?** Run `/springboot-menu` at any point to see your project status, what's installed, what's next, and get active guidance.
 
 ---
 
@@ -438,13 +442,19 @@ cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
 mkdir my-new-app && cd my-new-app
 ```
 
-**3. 在 Claude 中執行第一個技能**
+**3. 在專案資料夾中執行Claude Code**
 
 ```
-執行 springboot-setup
+claude
 ```
 
-Claude 會問你約 13 個問題並建立 `.spring-config.json`，接著按照建議順序逐步安裝模組。
+**4. 在 Claude Code 中執行第一個技能**
+
+```
+/springboot-setup
+```
+
+Claude 會問數個問題並建立 `.spring-config.json`，接著按照建議順序逐步安裝模組。
 
 > **迷失方向？** 隨時說 `執行 springboot-menu`，查看專案狀態、已安裝模組、下一步建議，並獲得主動引導。
 

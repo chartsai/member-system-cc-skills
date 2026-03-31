@@ -17,20 +17,46 @@ depends on this file.
 
 ## What this skill does
 
-1. Asks the user 10–12 configuration questions
-2. Writes `.spring-config.json` to the project root
-3. Marks `"setup"` in `installed_modules`
+1. Asks for the user's preferred language first, then switches to that language immediately
+2. Asks the remaining 11 configuration questions in the chosen language
+3. Writes `.spring-config.json` to the project root
+4. Marks `"setup"` in `installed_modules`
 
 ---
 
-## Step 1 — Run the interview
+## Step 1 — Ask for preferred language first
 
-Ask the user the following questions. You can ask them all at once in a numbered list, or group them into
-two rounds if that feels less overwhelming. Accept "TBD" or blank for optional fields.
+Before anything else, ask this single question in **all supported languages** so the user can answer in their language:
 
 ```
-I need to collect some configuration details before scaffolding your Spring Boot project.
-Please answer the following (you can write "TBD" for anything you don't know yet):
+What is your preferred language for this setup?
+您希望使用哪種語言進行設定？
+セットアップに使用する言語を選択してください。
+
+  1. English
+  2. 繁體中文 (Traditional Chinese)
+  3. 日本語
+  4. Other — please specify / 其他，請說明 / その他（入力してください）
+```
+
+Once the user replies, **switch all subsequent output to that language immediately** — including every question, explanation, and confirmation in the steps below.
+
+Also ask at this point:
+
+```
+Should technical terms (Controller, Service, Entity, Repository, etc.) be translated,
+or kept in English even when responding in your language? (yes = translate / no = keep in English)
+```
+
+---
+
+## Step 2 — Run the rest of the interview
+
+Now ask the remaining questions in the chosen language. Accept "TBD" or blank for optional fields.
+
+```
+Great! I'll continue in <language>. Please answer the following
+(you can write "TBD" for anything you don't know yet):
 
 1.  App name            — The name of your application (e.g. "MemberHub", "CertTrack")
 2.  Brand name          — Your company or brand name (e.g. "Acme Corp") — can be same as app name
@@ -40,26 +66,23 @@ Please answer the following (you can write "TBD" for anything you don't know yet
 6.  Database name       — PostgreSQL DB name, e.g. "myapp_db"
 7.  GCP project ID      — Your Google Cloud project ID (or TBD if not set up yet)
 8.  GCP region          — e.g. "us-central1", "asia-east1" (or TBD)
-9.  Preferred language  — Language for Claude's responses. Options:
-                            "English" / "繁體中文" (Traditional Chinese) / "日本語" / other
-                          Note: 繁體中文 and 简体中文 are different — please specify which you want.
-10. Translate terms?    — Should technical terms (Controller, Service, Entity, etc.) be translated,
-                          or kept in English even when responding in another language? (yes/no)
-11. Test mode           — How should tests be handled?
+9.  Test mode           — How should tests be handled?
                             "token-save"     → skip all tests (fastest, fewest tokens)
                             "build-only"     → run ./gradlew build -x test (verify compilation only)
                             "build-and-test" → run ./gradlew build (full build + tests)
-12. Soft delete?        — Should deleted records be permanently removed, or kept with a
+10. Soft delete?        — Should deleted records be permanently removed, or kept with a
                           deleted_at timestamp (recommended — allows data recovery)?
                           Default: yes (soft delete) — type "no" only for permanent delete.
-13. Beginner-friendly?  — Would you like Claude to explain technical terms and decisions
+11. Beginner-friendly?  — Would you like Claude to explain technical terms and decisions
                           as it works? (e.g., "A Flyway migration is a versioned SQL script...")
                           Default: no — type "yes" if you are new to Spring Boot / Java.
 ```
 
+Translate the question text above into the chosen language before asking.
+
 ---
 
-## Step 2 — Confirm and write config
+## Step 3 — Confirm and write config
 
 After collecting answers, show the user a summary:
 
@@ -85,7 +108,7 @@ Wait for confirmation. If the user wants to change anything, update the values a
 
 ---
 
-## Step 3 — Write `.spring-config.json`
+## Step 4 — Write `.spring-config.json`
 
 Write this file to the **current working directory** (the project root):
 
@@ -110,7 +133,7 @@ Write this file to the **current working directory** (the project root):
 
 ---
 
-## Step 4 — Confirm success
+## Step 5 — Confirm success
 
 Tell the user:
 
