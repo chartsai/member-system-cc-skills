@@ -24,6 +24,15 @@ depends on this file.
 
 ---
 
+## Step 0 — Check for existing language preference
+
+Try to read `.spring-config.json` from the current directory.
+
+- If it exists and `language` is already set → **skip Step 1 entirely**. Switch to that language now and proceed directly to Step 2. Tell the user: "Using language set during welcome: `<language>`."
+- If it exists but `language` is not set, or if the file does not exist → continue to Step 1.
+
+---
+
 ## Step 1 — Ask for preferred language first
 
 Before anything else, ask this single question in **all supported languages** so the user can answer in their language:

@@ -28,15 +28,18 @@ git clone https://github.com/chartsai/member-system-cc-skills.git
 mkdir -p ~/.claude/commands && cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
 ```
 
-**3. Run the environment setup skill — it installs Java, Docker, and everything else automatically:**
+**3. Create your project folder, launch Claude Code inside it, and run the welcome skill:**
 
 ```bash
+mkdir my-new-app && cd my-new-app
 claude
 ```
 
 ```
-/springboot-env-setup
+/springboot-welcome
 ```
+
+The welcome skill picks your language and installs any missing tools (Java, Docker, etc.) automatically.
 
 > Don't have npm or git yet? → [Manual install guide](#prerequisites)
 
@@ -138,17 +141,17 @@ cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
 
 > Skills are now available globally across all your projects.
 
-**2. Launch Claude Code and set up your environment**
+**2. Launch Claude Code and run the welcome skill**
 
 ```bash
 claude
 ```
 
-Then run the environment setup skill — it detects your OS and installs any missing tools (Homebrew, Node.js, Java 21, Docker, gcloud):
+```
+/springboot-welcome
+```
 
-```
-/springboot-env-setup
-```
+It will ask your preferred language, then detect your OS and install any missing tools (Homebrew, Node.js, Java 21, Docker, gcloud).
 
 **3. Create a new project folder**
 
@@ -175,7 +178,7 @@ Claude will ask a few questions and create `.spring-config.json`. Then follow th
 ## Recommended Install Order
 
 ```
-0.  springboot-env-setup        ← RUN FIRST — installs Homebrew, Node.js, Java 21, Docker, gcloud
+0.  springboot-welcome          ← RUN FIRST — language selection + installs all dev tools
 1.  springboot-prototype-ui     ← optional: design your UI first (HTML mockups, no backend)
 2.  springboot-setup            ← creates .spring-config.json
 3.  springboot-ide-setup        ← optional: IntelliJ IDEA setup guide
@@ -212,7 +215,7 @@ Claude will ask a few questions and create `.spring-config.json`. Then follow th
 
 | Skill | Description |
 |---|---|
-| `springboot-env-setup` | **Run before anything else.** Detects your OS, checks what is already installed, and installs any missing tools — Homebrew, Node.js, Java 21, Docker Desktop, gcloud CLI. Skips tools that are already present. |
+| `springboot-welcome` | **Run before anything else.** Asks your preferred language first, then detects your OS and installs any missing tools — Homebrew, Node.js, Java 21, Docker Desktop, gcloud CLI. Writes a minimal `.spring-config.json` and guides you to `/springboot-setup` next. |
 
 ### 🗺️ Navigation
 
@@ -397,15 +400,18 @@ git clone https://github.com/chartsai/member-system-cc-skills.git
 mkdir -p ~/.claude/commands && cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
 ```
 
-**3. 執行環境設定技能 — 自動安裝 Java、Docker 等所有開發工具：**
+**3. 建立專案資料夾，在其中啟動 Claude Code，執行 /springboot-welcome 技能：**
 
 ```bash
+mkdir my-new-app && cd my-new-app
 claude
 ```
 
 ```
-/springboot-env-setup
+/springboot-welcome
 ```
+
+這個技能會詢問語言偏好，並自動安裝缺少的工具（Java、Docker 等）。
 
 > 還沒有 npm 或 Claude Code？→ [手動安裝說明](#環境需求)
 
@@ -534,7 +540,7 @@ Claude 會問數個問題並建立 `.spring-config.json`，接著按照建議順
 ## 建議安裝順序
 
 ```
-0.  springboot-env-setup        ← 最先執行 — 安裝 Homebrew、Node.js、Java 21、Docker、gcloud
+0.  springboot-welcome          ← 最先執行 — 選擇語言 + 安裝所有開發工具
 1.  springboot-prototype-ui     ← 選用：先設計 UI（HTML 原型，不需後端）
 2.  springboot-setup            ← 建立 .spring-config.json
 3.  springboot-ide-setup        ← 選用：IntelliJ IDEA 設定指南
@@ -571,7 +577,7 @@ Claude 會問數個問題並建立 `.spring-config.json`，接著按照建議順
 
 | 技能 | 功能說明 |
 |---|---|
-| `springboot-env-setup` | **最先執行。** 偵測作業系統，檢查已安裝的工具，並自動安裝缺少的項目 — Homebrew、Node.js、Java 21、Docker Desktop、gcloud CLI。已安裝的工具會自動跳過。 |
+| `springboot-welcome` | **最先執行。** 先詢問偏好語言，再偵測作業系統並自動安裝缺少的工具 — Homebrew、Node.js、Java 21、Docker Desktop、gcloud CLI。寫入最小化 `.spring-config.json` 並引導執行 `/springboot-setup`。 |
 
 ### 🗺️ 選單與導引
 

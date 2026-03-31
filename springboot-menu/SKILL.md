@@ -20,17 +20,30 @@ Try to read `.spring-config.json` from the current directory.
 **If the file does NOT exist**, detect language from the user's prior messages if possible; if they wrote in Traditional Chinese (繁體中文), respond in Traditional Chinese — otherwise default to English. Show this message:
 
 ```
-👋 Welcome! It looks like this is a new project — no .spring-config.json found yet.
+👋 It looks like this is a brand-new project.
 
-To get started, run: springboot-setup
+Start here → run /springboot-welcome
 
-This will ask you ~13 questions (app name, package, database, language preferences, etc.)
-and create the config file that all other skills depend on.
+This will:
+  1. Ask your preferred language
+  2. Check and install any missing tools (Java, Docker, etc.)
+  3. Guide you to run /springboot-setup next
 ```
 
-Then stop — do not show the full module status yet (nothing is installed).
+Then stop — do not show the full module status yet.
 
-**If the file exists**, continue to Step 1.
+**If the file exists but `"welcome"` is NOT in `installed_modules`**, show a gentle reminder before continuing:
+
+```
+⚠️  Heads up: it looks like you haven't run /springboot-welcome yet.
+    Consider running it first — it sets your language preference and
+    checks that your development environment is ready.
+    (You can skip this if your environment is already set up.)
+```
+
+Then continue to Step 1 regardless.
+
+**If the file exists and `"welcome"` IS in `installed_modules`**, continue to Step 1 directly.
 
 ---
 
@@ -70,6 +83,7 @@ Then show a checklist of ALL 22 modules grouped by layer. For each module, displ
 - 🔒 if NOT installed AND one or more prerequisites are missing — show which prereqs are missing in parentheses
 
 **Module key names** (these are the string values stored in `installed_modules`):
+- `welcome`
 - `setup`, `scaffold`, `db`, `app-config`, `mail`
 - `gcp`, `deploy`
 - `auth-google`, `auth-magic-link`
@@ -82,11 +96,14 @@ Then show a checklist of ALL 22 modules grouped by layer. For each module, displ
 **Module groups and dependency rules:**
 
 ```
+🛠️  ENVIRONMENT
+  ✅/⬜  springboot-welcome         — Language + environment setup (run before all)    [needs: nothing]
+
 🗺️  NAVIGATION
   ✅/⬜  springboot-menu            — Project status dashboard (this skill)           [needs: nothing]
 
 🏗️  FOUNDATION
-  ✅/⬜  springboot-setup           — Project config wizard (run this first)           [needs: nothing]
+  ✅/⬜  springboot-setup           — Project config wizard                           [needs: welcome]
   ✅/⬜  springboot-scaffold        — Spring Boot project, Thymeleaf, Tailwind         [needs: setup]
   ✅/⬜  springboot-db-setup        — PostgreSQL + Docker Compose + Flyway             [needs: setup, scaffold]
   ✅/⬜  springboot-app-config      — DB-backed app settings store                    [needs: setup, scaffold, db]
