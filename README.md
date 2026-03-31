@@ -1,15 +1,44 @@
 # 🍃 Claude Code Skills - Membership System｜Claude Code 會員系統技能包
 
-**26 modular Claude skills for building production-ready Spring Boot web apps — step by step.**
+**27 modular Claude skills for building production-ready Spring Boot web apps — step by step.**
 
 > Stop copy-pasting boilerplate. Just run a skill, answer a few questions, and get working code.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Skills: 26](https://img.shields.io/badge/Skills-26-blue.svg)](#all-26-skills)
+[![Skills: 27](https://img.shields.io/badge/Skills-27-blue.svg)](#all-27-skills)
 [![Spring Boot: 3.x](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Language: Kotlin](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org)
 
 > [繁體中文說明請點此](#-claude-code-會員系統技能包)
+
+---
+
+## ⚡ Quick Start (TL;DR)
+
+**1. Install Claude Code CLI:**
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+**2. Clone this repo and install the skills:**
+
+```bash
+git clone https://github.com/chartsai/member-system-cc-skills.git
+mkdir -p ~/.claude/commands && cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
+```
+
+**3. Run the environment setup skill — it installs Java, Docker, and everything else automatically:**
+
+```bash
+claude
+```
+
+```
+/springboot-env-setup
+```
+
+> Don't have npm or git yet? → [Manual install guide](#prerequisites)
 
 ---
 
@@ -62,7 +91,6 @@ brew install node
 
 | Tool | Purpose | Command |
 |---|---|---|
-| [Claude Code](https://claude.ai/code) | Runs the skills (CLI) | `npm install -g @anthropic-ai/claude-code` |
 | [Java 21+](https://adoptium.net) | Spring Boot runtime | `brew install --cask temurin@21` |
 | [Docker Desktop](https://www.docker.com/products/docker-desktop) | Local PostgreSQL + MailHog | `brew install --cask docker` |
 | [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE (Community is free) | `brew install --cask intellij-idea-ce` |
@@ -86,7 +114,6 @@ winget install OpenJS.NodeJS
 
 | Tool | Purpose | Command |
 |---|---|---|
-| [Claude Code](https://claude.ai/code) | Runs the skills (CLI) | `npm install -g @anthropic-ai/claude-code` |
 | [Java 21+](https://adoptium.net) | Spring Boot runtime | `winget install EclipseAdoptium.Temurin.21.JDK` |
 | [Docker Desktop](https://www.docker.com/products/docker-desktop) | Local PostgreSQL + MailHog | `winget install Docker.DockerDesktop` |
 | [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE (Community is free) | `winget install JetBrains.IntelliJIDEA.Community` |
@@ -111,19 +138,29 @@ cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
 
 > Skills are now available globally across all your projects.
 
-**2. Create a new project folder**
+**2. Launch Claude Code and set up your environment**
+
+```bash
+claude
+```
+
+Then run the environment setup skill — it detects your OS and installs any missing tools (Homebrew, Node.js, Java 21, Docker, gcloud):
+
+```
+/springboot-env-setup
+```
+
+**3. Create a new project folder**
 
 ```bash
 mkdir my-new-app && cd my-new-app
 ```
 
-**3. Launch Claude Code in the project folder**
+**4. Launch Claude Code and run the project setup skill**
 
-```
+```bash
 claude
 ```
-
-**4. Run the first skill in Claude Code**
 
 ```
 /springboot-setup
@@ -138,37 +175,44 @@ Claude will ask a few questions and create `.spring-config.json`. Then follow th
 ## Recommended Install Order
 
 ```
-0.  springboot-prototype-ui     ← optional: design your UI first (HTML mockups, no backend)
-1.  springboot-setup            ← ALWAYS FIRST — creates .spring-config.json
-2.  springboot-ide-setup        ← optional: IntelliJ IDEA setup guide
-3.  springboot-scaffold         ← generates the Spring Boot project
-4.  springboot-db-setup         ← PostgreSQL + Flyway + Docker Compose
-5.  springboot-app-config       ← DB-backed settings store
-6.  springboot-gcp-setup        ← Google Cloud setup (for deployment)
-7.  springboot-mail             ← SMTP email system
-8.  springboot-auth-google      ← Google OAuth2 login
+0.  springboot-env-setup        ← RUN FIRST — installs Homebrew, Node.js, Java 21, Docker, gcloud
+1.  springboot-prototype-ui     ← optional: design your UI first (HTML mockups, no backend)
+2.  springboot-setup            ← creates .spring-config.json
+3.  springboot-ide-setup        ← optional: IntelliJ IDEA setup guide
+4.  springboot-scaffold         ← generates the Spring Boot project
+5.  springboot-db-setup         ← PostgreSQL + Flyway + Docker Compose
+6.  springboot-app-config       ← DB-backed settings store
+7.  springboot-gcp-setup        ← Google Cloud setup (for deployment)
+8.  springboot-mail             ← SMTP email system
+9.  springboot-auth-google      ← Google OAuth2 login
     springboot-auth-magic-link  ← or passwordless magic link (pick one or both)
-9.  springboot-membership       ← member entity, roles, admin list
-10. springboot-membership-apply ← public signup + approval workflow
-11. springboot-admin-portal     ← admin "preview as member" feature
-12. springboot-file-upload      ← file uploads (local + GCS)
-13. springboot-item-submit      ← member submission system
-14. springboot-announcements    ← admin broadcast announcements
-15. springboot-stats-summary    ← activity statistics
-16. springboot-data-export      ← CSV / Excel / Google Sheets export
-17. springboot-audit-log        ← audit trail
-18. springboot-integration-tests← integration test strategy
-19. springboot-deploy           ← Cloud Run deployment
+10. springboot-membership       ← member entity, roles, admin list
+11. springboot-membership-apply ← public signup + approval workflow
+12. springboot-admin-portal     ← admin "preview as member" feature
+13. springboot-file-upload      ← file uploads (local + GCS)
+14. springboot-item-submit      ← member submission system
+15. springboot-announcements    ← admin broadcast announcements
+16. springboot-stats-summary    ← activity statistics
+17. springboot-data-export      ← CSV / Excel / Google Sheets export
+18. springboot-audit-log        ← audit trail
+19. springboot-integration-tests← integration test strategy
+20. springboot-deploy           ← Cloud Run deployment
 --- optional, add any time after the foundation ---
-20. springboot-i18n             ← multi-language UI
-21. springboot-search           ← full-text search
-22. springboot-notifications    ← in-app notification bell
-23. springboot-content          ← blog / CMS with rich text editor
+21. springboot-i18n             ← multi-language UI
+22. springboot-search           ← full-text search
+23. springboot-notifications    ← in-app notification bell
+24. springboot-content          ← blog / CMS with rich text editor
 ```
 
 ---
 
-## All 26 Skills
+## All 27 Skills
+
+### 🛠️ Environment
+
+| Skill | Description |
+|---|---|
+| `springboot-env-setup` | **Run before anything else.** Detects your OS, checks what is already installed, and installs any missing tools — Homebrew, Node.js, Java 21, Docker Desktop, gcloud CLI. Skips tools that are already present. |
 
 ### 🗺️ Navigation
 
@@ -330,11 +374,40 @@ MIT — use freely, build great things.
 
 # 🍃 Claude Code 會員系統技能包
 
-**26 個模組化 Claude Code 技能，逐步引導你建立專業的會員管理網站。**
+**27 個模組化 Claude Code 技能，逐步引導你建立專業的會員管理網站。**
 
 > 不用再複製貼上樣板程式碼。執行技能、回答幾個問題，就能得到可運行的程式碼，並上傳至伺服器(Google Cloud)運行。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+---
+
+## ⚡ 懶人包
+
+**1. 安裝 Claude Code CLI：**
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+**2. Clone 並安裝技能：**
+
+```bash
+git clone https://github.com/chartsai/member-system-cc-skills.git
+mkdir -p ~/.claude/commands && cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
+```
+
+**3. 執行環境設定技能 — 自動安裝 Java、Docker 等所有開發工具：**
+
+```bash
+claude
+```
+
+```
+/springboot-env-setup
+```
+
+> 還沒有 npm 或 Claude Code？→ [手動安裝說明](#環境需求)
 
 ---
 
@@ -387,7 +460,6 @@ brew install node
 
 | 工具 | 用途 | 指令 |
 |---|---|---|
-| [Claude Code](https://claude.ai/code) | 執行Claude Code技能必備 | `npm install -g @anthropic-ai/claude-code` |
 | [Java 21+](https://adoptium.net) | Spring Boot 執行環境 | `brew install --cask temurin@21` |
 | [Docker Desktop](https://www.docker.com/products/docker-desktop) | 開發期間的測試用資料庫 | `brew install --cask docker` |
 | [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE（工程師選用）  | `brew install --cask intellij-idea-ce` |
@@ -411,7 +483,6 @@ winget install OpenJS.NodeJS
 
 | 工具 | 用途 | 指令 |
 |---|---|---|
-| [Claude Code](https://claude.ai/code) | 執行Claude Code技能必備 | `npm install -g @anthropic-ai/claude-code` |
 | [Java 21+](https://adoptium.net) | Spring Boot 執行環境 | `winget install EclipseAdoptium.Temurin.21.JDK` |
 | [Docker Desktop](https://www.docker.com/products/docker-desktop) | 開發期間的測試用資料庫 | `winget install Docker.DockerDesktop` |
 | [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE（工程師選用） | `winget install JetBrains.IntelliJIDEA.Community` |
@@ -463,37 +534,44 @@ Claude 會問數個問題並建立 `.spring-config.json`，接著按照建議順
 ## 建議安裝順序
 
 ```
-0.  springboot-prototype-ui     ← 選用：先設計 UI（HTML 原型，不需後端）
-1.  springboot-setup            ← 必須最先執行 — 建立 .spring-config.json
-2.  springboot-ide-setup        ← 選用：IntelliJ IDEA 設定指南
-3.  springboot-scaffold         ← 產生 Spring Boot 專案骨架
-4.  springboot-db-setup         ← PostgreSQL + Flyway + Docker Compose
-5.  springboot-app-config       ← 資料庫設定儲存系統
-6.  springboot-gcp-setup        ← Google Cloud 設定（部署時需要）
-7.  springboot-mail             ← SMTP Email 系統
-8.  springboot-auth-google      ← Google OAuth2 登入
+0.  springboot-env-setup        ← 最先執行 — 安裝 Homebrew、Node.js、Java 21、Docker、gcloud
+1.  springboot-prototype-ui     ← 選用：先設計 UI（HTML 原型，不需後端）
+2.  springboot-setup            ← 建立 .spring-config.json
+3.  springboot-ide-setup        ← 選用：IntelliJ IDEA 設定指南
+4.  springboot-scaffold         ← 產生 Spring Boot 專案骨架
+5.  springboot-db-setup         ← PostgreSQL + Flyway + Docker Compose
+6.  springboot-app-config       ← 資料庫設定儲存系統
+7.  springboot-gcp-setup        ← Google Cloud 設定（部署時需要）
+8.  springboot-mail             ← SMTP Email 系統
+9.  springboot-auth-google      ← Google OAuth2 登入
     springboot-auth-magic-link  ← 或無密碼魔法連結登入（擇一或兩者都裝）
-9.  springboot-membership       ← 會員實體、角色、管理員清單
-10. springboot-membership-apply ← 公開申請表單 + 審核流程
-11. springboot-admin-portal     ← 管理員「以會員身份預覽」功能
-12. springboot-file-upload      ← 檔案上傳
-13. springboot-item-submit      ← 會員提交系統
-14. springboot-announcements    ← 公告廣播
-15. springboot-stats-summary    ← 活動統計
-16. springboot-data-export      ← CSV / Excel / Google Sheets 匯出
-17. springboot-audit-log        ← 稽核記錄
-18. springboot-integration-tests← 整合測試策略
-19. springboot-deploy           ← Cloud Run 部署
+10. springboot-membership       ← 會員實體、角色、管理員清單
+11. springboot-membership-apply ← 公開申請表單 + 審核流程
+12. springboot-admin-portal     ← 管理員「以會員身份預覽」功能
+13. springboot-file-upload      ← 檔案上傳
+14. springboot-item-submit      ← 會員提交系統
+15. springboot-announcements    ← 公告廣播
+16. springboot-stats-summary    ← 活動統計
+17. springboot-data-export      ← CSV / Excel / Google Sheets 匯出
+18. springboot-audit-log        ← 稽核記錄
+19. springboot-integration-tests← 整合測試策略
+20. springboot-deploy           ← Cloud Run 部署
 --- 選用，基礎完成後任何時候都可安裝 ---
-20. springboot-i18n             ← 多語言 UI
-21. springboot-search           ← 全文搜尋
-22. springboot-notifications    ← 站內通知鈴鐺
-23. springboot-content          ← 部落格 / CMS
+21. springboot-i18n             ← 多語言 UI
+22. springboot-search           ← 全文搜尋
+23. springboot-notifications    ← 站內通知鈴鐺
+24. springboot-content          ← 部落格 / CMS
 ```
 
 ---
 
-## 全部 26 個技能
+## 全部 27 個技能
+
+### 🛠️ 環境設定
+
+| 技能 | 功能說明 |
+|---|---|
+| `springboot-env-setup` | **最先執行。** 偵測作業系統，檢查已安裝的工具，並自動安裝缺少的項目 — Homebrew、Node.js、Java 21、Docker Desktop、gcloud CLI。已安裝的工具會自動跳過。 |
 
 ### 🗺️ 選單與導引
 
