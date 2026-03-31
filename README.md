@@ -1,4 +1,4 @@
-# 🍃 Spring Boot Skills
+# 🍃 Claude Code Skills - Membership System｜Claude Code 會員系統技能包
 
 **26 modular Claude skills for building production-ready Spring Boot web apps — step by step.**
 
@@ -9,15 +9,17 @@
 [![Spring Boot: 3.x](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Language: Kotlin](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org)
 
+> [繁體中文說明請點此](#-claude-code-會員系統技能包)
+
 ---
 
 ## What is this?
 
-A collection of **Claude AI skills** that guide you through building a full-featured Spring Boot web application — one module at a time. Each skill knows your project config, checks prerequisites, generates production-ready code, writes unit tests, and commits to git.
+A collection of **Claude AI skills** that guide you through building a full-featured membership web application — one module at a time. Each skill knows your project config, checks prerequisites, generates production-ready code, writes unit tests, and commits to git. When everything is ready, it deploys to **[Google Cloud Server - Google Cloud](https://cloud.google.com/run)** with a single command.
 
-**You don't need to be an expert.** Skills explain what they're doing as they go.
+**You don't need to be an expert.** Skills explain what they're doing as they go. Think of it as a **senior developer sitting next to you**, implementing features and teaching you along the way.
 
-Think of it as a **senior Spring Boot developer sitting next to you**, implementing features and teaching you along the way.
+The web app is built on [Spring Boot](https://spring.io/projects/spring-boot). Spring Boot is a popular Java/Kotlin framework for building web applications. It handles routing, database access, authentication, and background jobs — so you can focus on your product. It's widely used in both startups and enterprise backends.
 
 ---
 
@@ -42,13 +44,53 @@ A full-stack membership web application with:
 
 ## Prerequisites
 
-| Tool | Purpose | Install |
+### macOS
+
+**Step 1 — Install [Homebrew](https://brew.sh)** (package manager):
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+**Step 2 — Install [Node.js](https://nodejs.org)** (`npm` is bundled with it — macOS does not include npm by default):
+
+```bash
+brew install node
+```
+
+**Step 3 — Install the rest:**
+
+| Tool | Purpose | Command |
 |---|---|---|
-| [Claude](https://claude.ai) | Runs the skills | claude.ai |
-| [Java 21+](https://adoptium.net) | Spring Boot runtime | `brew install temurin` |
-| [Docker Desktop](https://www.docker.com/products/docker-desktop) | Local PostgreSQL + MailHog | docker.com |
-| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE (Community edition is free) | jetbrains.com |
-| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | GCP deployment (optional) | cloud.google.com |
+| [Claude Code](https://claude.ai/code) | Runs the skills (CLI) | `npm install -g @anthropic-ai/claude-code` |
+| [Java 21+](https://adoptium.net) | Spring Boot runtime | `brew install --cask temurin@21` |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop) | Local PostgreSQL + MailHog | `brew install --cask docker` |
+| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE (Community is free) | `brew install --cask intellij-idea-ce` |
+| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | GCP deployment (optional) | `brew install --cask google-cloud-sdk` |
+
+---
+
+### Windows
+
+**`winget`** is built into Windows 10 (1809+) and Windows 11. Open **PowerShell** or **Command Prompt** and run:
+
+**Step 1 — Install [Node.js](https://nodejs.org)** (`npm` is bundled with it — Windows does not include npm by default):
+
+```
+winget install OpenJS.NodeJS
+```
+
+> **Restart your terminal** after this step so `npm` is available on your PATH.
+
+**Step 2 — Install the rest:**
+
+| Tool | Purpose | Command |
+|---|---|---|
+| [Claude Code](https://claude.ai/code) | Runs the skills (CLI) | `npm install -g @anthropic-ai/claude-code` |
+| [Java 21+](https://adoptium.net) | Spring Boot runtime | `winget install EclipseAdoptium.Temurin.21.JDK` |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop) | Local PostgreSQL + MailHog | `winget install Docker.DockerDesktop` |
+| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE (Community is free) | `winget install JetBrains.IntelliJIDEA.Community` |
+| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | GCP deployment (optional) | `winget install Google.CloudSDK` |
 
 ---
 
@@ -57,10 +99,17 @@ A full-stack membership web application with:
 **1. Clone this repo and install the skills into Claude**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/springboot-skills.git
+git clone https://github.com/chartsai/member-system-cc-skills.git
 ```
 
-Copy the skill folders into Claude's skills directory (location varies by Claude app — check Claude settings for the skills folder path).
+Copy the skill folders into Claude Code's user commands directory:
+
+```bash
+mkdir -p ~/.claude/commands
+cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
+```
+
+> Skills are now available globally across all your projects.
 
 **2. Create a new project folder and open Claude**
 
@@ -275,11 +324,11 @@ MIT — use freely, build great things.
 ---
 ---
 
-# 🍃 Spring Boot Skills（繁體中文說明）
+# 🍃 Claude Code 會員系統技能包
 
-**26 個模組化 Claude 技能，逐步引導你建立 production-ready 的 Spring Boot 網站。**
+**26 個模組化 Claude Code 技能，逐步引導你建立專業的會員管理網站。**
 
-> 不用再複製貼上樣板程式碼。執行技能、回答幾個問題，就能得到可運行的程式碼。
+> 不用再複製貼上樣板程式碼。執行技能、回答幾個問題，就能得到可運行的程式碼，並上傳至伺服器(Google Cloud)運行。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -287,11 +336,11 @@ MIT — use freely, build great things.
 
 ## 這是什麼？
 
-一套 **Claude AI 技能**，引導你一步一步建立完整的 Spring Boot 網站——每次安裝一個模組。每個技能都了解你的專案設定、檢查前置需求、生成 production-ready 程式碼、撰寫單元測試，並提交到 git。
+一套 **Claude AI 技能**，引導你一步一步建立完整的會員系統網站——每次安裝一個模組。每個技能都了解你的專案設定、檢查前置需求、生成商用級程式碼、撰寫單元測試，並提交到 git 版本控制。網站完成後，只需一個指令即可部署到 **[Google 雲端詞服器 - Google Cloud](https://cloud.google.com/run)**。
 
-**不需要是專家。** 技能會邊做邊解釋它在做什麼。
+**不需要是專家。** 技能會邊做邊解釋它在做什麼。把它想成是一個**資深工程師坐在你旁邊**，一邊實作功能、一邊教你。
 
-把它想成是一個**資深 Spring Boot 工程師坐在你旁邊**，一邊實作功能、一邊教你。
+網站是基於[Spring Boot](https://spring.io/projects/spring-boot) 製作。Spring Boot是廣泛使用的 Java/Kotlin 網站框架，負責處理路由、資料庫存取、身分驗證、背景排程等底層工作，讓你專注在產品本身。它被大量用於新創公司與企業後端。
 
 ---
 
@@ -316,13 +365,53 @@ MIT — use freely, build great things.
 
 ## 環境需求
 
-| 工具 | 用途 | 安裝方式 |
+### macOS
+
+**第一步 — 安裝 [Homebrew](https://brew.sh)**（套件管理器）：
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+**第二步 — 安裝 [Node.js](https://nodejs.org)**（為了執行`npm`指令）：
+
+```bash
+brew install node
+```
+
+**第三步 — 安裝其餘工具：**
+
+| 工具 | 用途 | 指令 |
 |---|---|---|
-| [Claude](https://claude.ai) | 執行技能 | claude.ai |
-| [Java 21+](https://adoptium.net) | Spring Boot 執行環境 | `brew install temurin` |
-| [Docker Desktop](https://www.docker.com/products/docker-desktop) | 本機 PostgreSQL + MailHog | docker.com |
-| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE（Community 版免費） | jetbrains.com |
-| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | GCP 部署（選用） | cloud.google.com |
+| [Claude Code](https://claude.ai/code) | 執行Claude Code技能必備 | `npm install -g @anthropic-ai/claude-code` |
+| [Java 21+](https://adoptium.net) | Spring Boot 執行環境 | `brew install --cask temurin@21` |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop) | 開發期間的測試用資料庫 | `brew install --cask docker` |
+| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE（工程師選用）  | `brew install --cask intellij-idea-ce` |
+| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | 上傳至Google雲端並啟用會員系統 | `brew install --cask google-cloud-sdk` |
+
+---
+
+### Windows
+
+**`winget`** 已內建於 Windows 10（1809 以上）和 Windows 11。在開始還單中搜尋 **PowerShell** 並執行：
+
+**第一步 — 安裝 [Node.js](https://nodejs.org)**（為了執行`npm`指令）：
+
+```
+winget install OpenJS.NodeJS
+```
+
+> 安裝後請 **重新開啟PowerShell** ，確保 `npm` 可以執行。
+
+**第二步 — 安裝其餘工具：**
+
+| 工具 | 用途 | 指令 |
+|---|---|---|
+| [Claude Code](https://claude.ai/code) | 執行Claude Code技能必備 | `npm install -g @anthropic-ai/claude-code` |
+| [Java 21+](https://adoptium.net) | Spring Boot 執行環境 | `winget install EclipseAdoptium.Temurin.21.JDK` |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop) | 開發期間的測試用資料庫 | `winget install Docker.DockerDesktop` |
+| [IntelliJ IDEA](https://www.jetbrains.com/idea/) | IDE（工程師選用） | `winget install JetBrains.IntelliJIDEA.Community` |
+| [gcloud CLI](https://cloud.google.com/sdk/docs/install) | 上傳至Google雲端並啟用會員系統 | `winget install Google.CloudSDK` |
 
 ---
 
@@ -331,10 +420,17 @@ MIT — use freely, build great things.
 **1. Clone 並安裝技能**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/springboot-skills.git
+git clone https://github.com/chartsai/member-system-cc-skills.git
 ```
 
-將技能資料夾複製到 Claude 的技能目錄（路徑依 Claude 應用程式設定而異）。
+將技能資料夾複製到 Claude Code 的使用者指令目錄：
+
+```bash
+mkdir -p ~/.claude/commands
+cp -r member-system-cc-skills/springboot-* ~/.claude/commands/
+```
+
+> 技能安裝後可在本機所有專案中使用。
 
 **2. 建立新的專案資料夾**
 
